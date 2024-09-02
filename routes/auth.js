@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
 
-// USERS table
+// AUTH
 
-//Show all users register: http://localhost:4000/api/users/
+//Show all register: http://localhost:4000/api/?
 
 module.exports = router;

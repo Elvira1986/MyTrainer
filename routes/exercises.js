@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
 
-// USERS table
+// EXERCISES table
 
-//Show all users register: http://localhost:4000/api/users/
+// Show ALL exercises: http://localhost:4000/api/exercises/
 
 module.exports = router;
