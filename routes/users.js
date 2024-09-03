@@ -52,7 +52,7 @@ router.post("/", async function (req, res, next) {
   try {
     let sql = `
       INSERT INTO users (username, password, first_name, last_name, height, weight, gender, goal)
-      VALUES ('${username}', "${password}", ${first_name}, ${last_name}, ${height}, ${weight}, ${gender}, ${goal})
+      VALUES ("${username}", "${password}", "${first_name}", "${last_name}", ${height}, ${weight}, "${gender}", "${goal}")
     `;
     // Do the INSERT and ignore the result
     await db(sql);
@@ -69,7 +69,7 @@ router.delete("/:id", async function (req, res, next) {
   let userId = req.params.id;
 
   try {
-    let result = await db(`SELECT * FROM user WHERE id = ${userId}`);
+    let result = await db(`SELECT * FROM users WHERE id = ${userId}`);
     // Was the user found?
     if (result.data.length === 1) {
       // Yes & Do DELETE and ignore the result
@@ -80,6 +80,74 @@ router.delete("/:id", async function (req, res, next) {
     } else {
       // No, user didn't exist with ID
       res.status(404).send({ error: "User not found" });
+    }
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+// Update/PATCH Goal & Weight in user profile by id
+router.patch("/:id", async function (req, res) {
+  // get user by id and assign it
+  let userId = req.params.id;
+  let {
+    username,
+    password,
+    first_name,
+    last_name,
+    height,
+    weight,
+    gender,
+    goal,
+  } = req.body;
+
+  try {
+    // SELECT everything from users table with specific ID;
+    let result = await db(`SELECT * FROM users WHERE id = ${userId}`);
+    if (result.data.length === 1) {
+      await db(
+        `UPDATE users SET weight = ${weight}, goal="${goal}" WHERE id = ${userId};`
+      );
+      // Return updated array of user
+      result = await db("SELECT * FROM users");
+      res.send(result.data);
+    } else {
+      // user not found!
+      res.status(404).send({ error: "Item not found" });
+    }
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+// Update/PUT all user profile by id
+router.put("/:id", async function (req, res) {
+  // get user by id and assign it to userId
+  let userId = req.params.id;
+  let {
+    username,
+    password,
+    first_name,
+    last_name,
+    height,
+    weight,
+    gender,
+    goal,
+  } = req.body;
+
+  try {
+    // SELECT everything from users table with specific ID;
+    let result = await db(`SELECT * FROM users WHERE id = ${userId}`);
+    if (result.data.length === 1) {
+      await db(
+        `UPDATE users SET username="${username}", password="${password}", first_name="${first_name}", last_name="${last_name}", height=${height}, weight =${weight}, gender ="${gender}", goal="${goal}" WHERE id = ${userId};`
+      );
+      // Return updated array of users
+      result = await db("SELECT * FROM users");
+      res.send(result.data);
+    } else {
+      // user not found!
+      res.status(404).send({ error: "Item not found" });
     }
   } catch (err) {
     res.status(500).send({ error: err.message });
