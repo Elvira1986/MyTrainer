@@ -122,7 +122,7 @@ router.patch("/:id", async function (req, res) {
 
 // Update/PUT all user profile by id
 router.put("/:id", async function (req, res) {
-  // get user by id and assign it
+  // get user by id and assign it to userId
   let userId = req.params.id;
   let {
     username,
@@ -142,7 +142,7 @@ router.put("/:id", async function (req, res) {
       await db(
         `UPDATE users SET username="${username}", password="${password}", first_name="${first_name}", last_name="${last_name}", height=${height}, weight =${weight}, gender ="${gender}", goal="${goal}" WHERE id = ${userId};`
       );
-      // Return updated array of user
+      // Return updated array of users
       result = await db("SELECT * FROM users");
       res.send(result.data);
     } else {
