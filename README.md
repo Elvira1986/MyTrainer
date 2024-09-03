@@ -23,6 +23,12 @@ Front-end: JavaScript/React, CSS3, HTML5
 - Run `npm install` in the project folder to install dependencies related to Express (the server).
 - `cd client` and run `npm install` to install dependencies related to React (the client).
 
+###Dependecies for back-end installation `Node/Express`:
+`npm install mysql nodemon dotenv cors` - will install MySQL, Nodemon, Dotenv and CORS;
+
+###Dependecies for front-end installation `client`:
+`npm install react-router-dom` - install react router;
+
 ## Database Setup
 
 - Create the database mytrainer in MySQL:
