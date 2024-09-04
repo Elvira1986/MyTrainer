@@ -48,6 +48,15 @@ CREATE TABLE `exercises`(
     `equipment` VARCHAR(255) NOT NULL
 );
 
+-- ALTER TABLE
+--     `users` ADD UNIQUE `users_username_unique`(`username`);
+-- ALTER TABLE
+--     `favorite_food` ADD CONSTRAINT `favorite_food_users_id_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`);
+-- ALTER TABLE
+--     `favorite_exercises` ADD CONSTRAINT `favorite_exercises_exercises_id_foreign` FOREIGN KEY(`exercises_id`) REFERENCES `exercises`(`id`);
+-- ALTER TABLE
+--     `favorite_exercises` ADD CONSTRAINT `favorite_exercises_users_id_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`);
+
 INSERT INTO exercises ( name, description, goal, muscles, category, image, equipment) VALUES 
 ('Crunch', ' Lie on your back on the floor with your knees bent. Curl your shoulders towards your pelvis. Hands can be behind or beside the neck or crossed over the chest. Repeat.', 'Get fit', 'Pectoralis major', 'olympic weightlifting', 'https://wger.de/media/exercise-images/91/Crunches-1.png', 'Gym mat'), 
 ('Abdominal Crunch', 'Sit on a mat, with your calves resting on a bench, and your knees forming a right angle. Keep your hands behind your neck. Now roll your back up, feeling how the individual vertebrae lose contact with the mat. At the highest point, contract your abs as much as you can and hold for 2 seconds. Lower yourself down, unrolling your back.', 'Increase strength', 'Pectoralis major, Hamstrings', 'stretching', 'https://wger.de/media/exercise-images/93/Decline-crunch-1.png', 'Body weight, gym mat'), 

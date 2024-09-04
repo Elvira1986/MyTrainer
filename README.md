@@ -23,6 +23,12 @@ Front-end: JavaScript/React, CSS3, HTML5
 - Run `npm install` in the project folder to install dependencies related to Express (the server).
 - `cd client` and run `npm install` to install dependencies related to React (the client).
 
+###Dependecies for back-end installation `Node/Express`:
+`npm install mysql nodemon dotenv cors` - will install MySQL, Nodemon, Dotenv and CORS;
+
+###Dependecies for front-end installation `client`:
+`npm install react-router-dom` - install react router;
+
 ## Database Setup
 
 - Create the database mytrainer in MySQL:
@@ -37,3 +43,12 @@ Front-end: JavaScript/React, CSS3, HTML5
   DESCRIBE favorite_food;
   ```
 - Create the .env file to match your personal credentials such as DB_HOST, DB_USER, DB_PASS, DB_NAME, SUPER_SECRET
+
+#EF476F -salmon - call to action btn:
+Some lines, acsent of website:
+#FFD166 - yellow
+#06D6A0 - bright green
+#118AB2 - blue
+Text:
+#073B4C - dark blue for headers h1 ... h6
+#342F2F -paragraph p and all other text
