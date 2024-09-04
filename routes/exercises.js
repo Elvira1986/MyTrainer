@@ -7,12 +7,14 @@ const db = require("../model/helper");
 // Show ALL exercises: http://localhost:4000/api/exercises/
 
 // Get all exercises
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
     try {
-        const exercises = await db.query('SELECT * FROM exercises');
-        res.status(200).json(exercises);
+        // Getting all the data from users table
+        let result = await db('SELECT * FROM exercises');
+        let exercises = result.data;
+        res.send(exercises);
     } catch (err) {
-        res.status(500).json({ error: 'Database query failed' });
+        res.status(500).send({ error: err.message });
     }
 });
 
