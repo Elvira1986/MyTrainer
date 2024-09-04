@@ -21,35 +21,34 @@ CREATE TABLE `favorite_food`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `users_id` INT NOT NULL,
     `external_api_id` INT NOT NULL,
-    `name` VARCHAR(255) NOT NULL,
-    `image` VARCHAR(255) NOT NULL
+    `name` VARCHAR(255),
+    `image` VARCHAR(255) 
 );
 
 CREATE TABLE `users`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    `first_name` VARCHAR(255) NOT NULL,
-    `last_name` VARCHAR(255) NOT NULL,
-    `height` INT NOT NULL,
-    `weight` INT NOT NULL,
-    `gender` VARCHAR(255) NOT NULL,
-    `goal` VARCHAR(255) NOT NULL
+    `first_name` VARCHAR(255),
+    `last_name` VARCHAR(255),
+    `height` INT,
+    `weight` INT,
+    `gender` VARCHAR(255),
+    `goal` VARCHAR(255)
 );
 
 CREATE TABLE `exercises`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(255) NOT NULL,
-    `description` VARCHAR(855) NOT NULL,
-    `goal` VARCHAR(255) NOT NULL,
-    `muscles` VARCHAR(255) NOT NULL,
-    `category` VARCHAR(255) NOT NULL,
-    `image` VARCHAR(255) NOT NULL,
-    `equipment` VARCHAR(255) NOT NULL
+    `name` VARCHAR(255),
+    `description` VARCHAR(855),
+    `goal` VARCHAR(255),
+    `muscles` VARCHAR(255),
+    `category` VARCHAR(255),
+    `image` VARCHAR(255),
+    `equipment` VARCHAR(255) 
 );
 
--- ALTER TABLE
---     `users` ADD UNIQUE `users_username_unique`(`username`);
+-- ALTER TABLE `users` ADD UNIQUE `users_username_unique`(`username`);
 -- ALTER TABLE
 --     `favorite_food` ADD CONSTRAINT `favorite_food_users_id_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`);
 -- ALTER TABLE
