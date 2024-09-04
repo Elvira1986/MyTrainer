@@ -24,10 +24,10 @@ Front-end: JavaScript/React, CSS3, HTML5
 - `cd client` and run `npm install` to install dependencies related to React (the client).
 
 ###Dependecies for back-end installation `Node/Express`:
-`npm install mysql nodemon dotenv cors` - will install MySQL, Nodemon, Dotenv and CORS;
+`npm install mysql nodemon dotenv cors jsonwebtoken bcrypt` - will install MySQL, Nodemon, Dotenv CORS and Jsonwebtoken Bcrypt;
 
 ###Dependecies for front-end installation `client`:
-`npm install react-router-dom` - install react router;
+`npm install react-router-dom axios` - install react router and axios;
 
 ## Database Setup
 
