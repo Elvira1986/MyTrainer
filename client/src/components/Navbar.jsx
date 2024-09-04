@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/Logo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,12 +45,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// <Routes>
-// <Route path="/" element={<Home />} />
-// <Route path="/profile" element={<Profile />} />
-// <Route path="/favourites" element={<Favourites />} />
-// <Route path="/exercises" element={<Exercises />} />
-// <Route path="/meals" element={<Meals />} />
-// <Route path="*" element={<Error404 />} />
-// </Routes>
