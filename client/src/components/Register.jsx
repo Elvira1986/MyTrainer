@@ -38,7 +38,7 @@ const register = async () => {
     setData(error.message);
     }
 
-    setCredentials({})
+    
 };
 
 const logout = () => {
