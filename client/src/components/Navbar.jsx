@@ -45,12 +45,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// <Routes>
-// <Route path="/" element={<Home />} />
-// <Route path="/profile" element={<Profile />} />
-// <Route path="/favourites" element={<Favourites />} />
-// <Route path="/exercises" element={<Exercises />} />
-// <Route path="/meals" element={<Meals />} />
-// <Route path="*" element={<Error404 />} />
-// </Routes>
