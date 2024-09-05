@@ -25,7 +25,7 @@ function Profile() {
   // Geting User with specific id and passing this data to front end
   const getUser = async () => {
     try {
-      const response = await fetch(`/api/users/2`);
+      const response = await fetch(`/api/users/:{id}`);
       const data = await response.json();
       setUser(data);
     } catch (err) {
@@ -72,7 +72,7 @@ function Profile() {
       body: JSON.stringify(body),
     };
     try {
-      let response = await fetch(`/api/users/2`, options);
+      let response = await fetch(`/api/users/:{id}`, options);
       if (response.ok) {
         let data = await response.json();
         setUser(data);

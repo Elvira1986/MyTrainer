@@ -1,33 +1,46 @@
 /* Overlay for the modal */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Modal container */
 .modal-content {
-    background-color: #073B4C;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-    width: 400px;
-    position: relative;
+  background-color: #073b4c;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+  width: 400px;
+  position: relative;
 }
 
 /* Close button */
 .modal-close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
-    font-size: 16px;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+label {
+  color: aliceblue;
+}
+
+.field {
+  display: flex;
+  padding: 10px;
+  justify-content: flex-start;
+}
+span {
+  padding-right: 20px;
 }
