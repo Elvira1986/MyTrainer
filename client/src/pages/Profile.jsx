@@ -24,8 +24,17 @@ function Profile() {
 
   // Geting User with specific id and passing this data to front end
   const getUser = async () => {
+    // create fetch option for get user by id
+    let options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+    console.log(id);
     try {
-      const response = await fetch(`/api/users/:{id}`);
+      const response = await fetch(`/api/users/:{id}`, options);
       const data = await response.json();
       setUser(data);
     } catch (err) {
@@ -42,7 +51,12 @@ function Profile() {
     // Do the DELETE by creating fetch options
     let options = {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
     };
+    console.log(id);
     try {
       let response = await fetch(`/api/users/:{id}`, options);
       if (response.ok) {
