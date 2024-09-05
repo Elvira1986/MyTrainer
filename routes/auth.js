@@ -17,14 +17,16 @@ router.post("/register", async (req, res) => {
     const { username, password, first_name, last_name, height, weight, gender, goal } = req.body;
 
     try {
-    const hash = await bcrypt.hash(password, saltRounds);
+        const hash = await bcrypt.hash(password, saltRounds);
 
-    await db(
-        `INSERT INTO users (username, password, first_name, last_name, height, weight, gender, goal)
-        VALUES ("${username}", "${hash}", "${first_name}", "${last_name}", ${height}, ${weight}, "${gender}", "${goal}")`
-    );
+        await db(
+            `INSERT INTO users (username, password, first_name, last_name, height, weight, gender, goal)
+            VALUES ("${username}", "${hash}", "${first_name}", "${last_name}", ${height}, ${weight}, "${gender}", "${goal}")`
+        );
 
-    res.send({ message: "Register successful" });
+        const results = await db(`SELECT username, first_name, last_name, height, weight, gender, goal FROM users WHERE username = "${username}"`);
+
+        res.send({ message: "Register successful", user: results.data[0] });
     } catch (err) {
     res.send({ message: err.message });
     }
@@ -48,7 +50,7 @@ router.post("/login", async (req, res) => {
         }
 
         const token = jwt.sign({ user_id }, supersecret);
-        res.status(200).send({ message: "Login successful, here is your token", token });
+        res.status(200).send({ message: "Login successful, here is your token", token, user: results.data[0] });
     } else {
         res.status(400).send({message: "User does not exist"})
     }
@@ -57,7 +59,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
-console.log(userShouldBeLoggedIn, "meeee")
+
 
 router.get("/profile", userShouldBeLoggedIn, async (req, res) => {
     const results = await db(`SELECT username, first_name, last_name, height, weight, gender, goal FROM users WHERE id = ${req.user_id}`);

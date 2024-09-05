@@ -17,23 +17,23 @@ router.get("/", async (req, res) => {
 });
 
 // Show/GET one user based on id:
-router.get("/:id", async function (req, res, next) {
-  let userId = req.params.id;
+// router.get("/:id", async function (req, res, next) {
+//   let userId = req.params.id;
 
-  try {
-    let result = await db(`SELECT * FROM users WHERE id = ${userId}`);
-    // Was the user found?
-    if (result.data.length === 1) {
-      // Yes, the user is found
-      res.send(result.data[0]); // return first user obj from array of results
-    } else {
-      // No user was found with ID
-      res.status(404).send({ error: "User not found" });
-    }
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
+//   try {
+//     let result = await db(`SELECT * FROM users WHERE id = ${userId}`);
+//     // Was the user found?
+//     if (result.data.length === 1) {
+//       // Yes, the user is found
+//       res.send(result.data[0]); // return first user obj from array of results
+//     } else {
+//       // No user was found with ID
+//       res.status(404).send({ error: "User not found" });
+//     }
+//   } catch (err) {
+//     res.status(500).send({ error: err.message });
+//   }
+// });
 
 // // INSERT a new user into the users table
 router.post("/", async function (req, res, next) {
