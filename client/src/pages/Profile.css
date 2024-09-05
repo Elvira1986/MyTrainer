@@ -26,11 +26,17 @@ button:hover {
 }
 
 label,
+select,
 .profileInput {
   display: block;
   padding: 10px;
   border-radius: 8px;
   margin: 10px 0px;
+}
+
+.update {
+  display: block;
+  margin-top: 2rem;
 }
 
 @media (max-width: 600px) {
