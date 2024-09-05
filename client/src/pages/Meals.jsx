@@ -33,8 +33,9 @@ function Meals() {
     // Construct the API URL with the query, diet, and allergy parameters
     let url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${appId}&app_key=${appKey}`;
 
+    // Fetching chicken recipes on initial load
     if (random) {
-      url += `&random=true`;
+      url += `&q=chicken`;
     } else if (query) {
       url += `&q=${query}`;
     }
@@ -69,9 +70,9 @@ function Meals() {
     }
   };
 
-  // Pre-populate random recipes when the component mounts
+  // Pre-populate chicken recipes when the component mounts
   useEffect(() => {
-    searchRecipes(true); // Fetch random recipes on initial load
+    searchRecipes(true); // Fetch chicken recipes on initial load
   }, []);
 
   // Function to toggle a recipe as favorite
@@ -100,7 +101,7 @@ function Meals() {
 
         {/* Dropdown menu for selecting a diet filter */}
         <select value={diet} onChange={(e) => setDiet(e.target.value)}>
-          <option value="">Diets</option>
+          <option value="">Select Diet</option>
           <option value="balanced">Balanced</option>
           <option value="high-protein">High-Protein</option>
           <option value="low-carb">Low-Carb</option>
@@ -113,7 +114,7 @@ function Meals() {
 
         {/* Dropdown menu for selecting an allergy filter */}
         <select value={allergies} onChange={(e) => setAllergies(e.target.value)}>
-          <option value="">Allergies</option>
+          <option value="">Select Allergy</option>
           <option value="gluten-free">Gluten-Free</option>
           <option value="peanut-free">Peanut-Free</option>
           <option value="soy-free">Soy-Free</option>
@@ -133,43 +134,25 @@ function Meals() {
       {/* Display error messages if any */}
       {error && <p className="error-message">{error}</p>}
 
-      {/* Display a random list of meals by default */}
-      {!query && !diet && !allergies && (
-        <div className="recipe-grid">
-          {recipes.map((recipe, index) => (
-            <div key={index} className="recipe-card">
-              <img src={recipe.recipe.image} alt={recipe.recipe.label} className="recipe-image" />
-              <h3>{recipe.recipe.label}</h3>
-              <p>{Math.round(recipe.recipe.calories)} CALORIES | {recipe.recipe.ingredientLines.length} INGREDIENTS</p>
-              <button
-                onClick={() => toggleFavorite(recipe)}
-                className={favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'favorite' : ''}
-              >
-                {favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'Remove' : 'Add'}
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Display the search results if there is a query */}
-      {recipes.length > 0 && (
-        <div className="recipe-grid">
-          {recipes.map((recipe, index) => (
-            <div key={index} className="recipe-card">
-              <img src={recipe.recipe.image} alt={recipe.recipe.label} className="recipe-image" />
-              <h3>{recipe.recipe.label}</h3>
-              <p>{Math.round(recipe.recipe.calories)} CALORIES | {recipe.recipe.ingredientLines.length} INGREDIENTS</p>
-              <button
-                onClick={() => toggleFavorite(recipe)}
-                className={favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'favorite' : ''}
-              >
-                {favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'Remove' : 'Add'}
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+      {/* Display the list of recipes in a grid layout */}
+      <div className="recipe-grid">
+        {recipes.map((recipe, index) => (
+          <div key={index} className="recipe-card">
+            <img src={recipe.recipe.image} alt={recipe.recipe.label} className="recipe-image" />
+            <h3>{recipe.recipe.label}</h3>
+            <p>{recipe.recipe.dishType?.join(', ')}</p>
+            <p className="recipe-description">
+              {Math.round(recipe.recipe.calories)} CALORIES | {recipe.recipe.ingredientLines.length} INGREDIENTS
+            </p>
+            <button
+              className={`favorite-button ${favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'favorited' : ''}`}
+              onClick={() => toggleFavorite(recipe)}
+            >
+              {favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'Remove' : 'Add'}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
