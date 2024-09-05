@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "test",
     password: "test",
@@ -27,6 +29,7 @@ function Login() {
       localStorage.setItem("token", data.token);
       console.log(data.message, data.token);
       setData(data.message);
+      navigate(`/profile`);
     } catch (error) {
       console.log(error);
       setData(error.message);

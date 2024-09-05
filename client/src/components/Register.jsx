@@ -147,13 +147,20 @@ function Register() {
           </label>
           <label>
             <span>Goal </span>
-            <input
+            <select
               value={goal}
               onChange={handleChange}
               name="goal"
               type="text"
               className="form-control mb-2"
-            />
+            >
+              <option value="Loose Weight">Loose Weight</option>
+              <option value="Get fit" selected>
+                Get fit
+              </option>
+              <option value="Increase strength">Increase strength</option>
+              <option value="Gain weight">Gain weight</option>
+            </select>
           </label>
           <div className="d-flex gap-2 justify-content-center">
             <button className="btn btn-primary" onClick={register}>

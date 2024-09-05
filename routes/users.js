@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 // USERS table to access in nodemon http://localhost:4000/api/users/
 
@@ -17,7 +18,7 @@ router.get("/", async (req, res) => {
 });
 
 // Show/GET one user based on id:
-router.get("/:id", async function (req, res, next) {
+router.get("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   let userId = req.params.id;
 
   try {
@@ -65,7 +66,7 @@ router.post("/", async function (req, res, next) {
 });
 
 // DELETE the user from users table DB based on ID
-router.delete("/:id", async function (req, res, next) {
+router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   let userId = req.params.id;
 
   try {
@@ -87,7 +88,7 @@ router.delete("/:id", async function (req, res, next) {
 });
 
 // Update/PATCH Goal & Weight in user profile by id
-router.patch("/:id", async function (req, res) {
+router.patch("/:id", userShouldBeLoggedIn, async function (req, res) {
   // get user by id and assign it
   let userId = req.params.id;
   let {
@@ -121,7 +122,7 @@ router.patch("/:id", async function (req, res) {
 });
 
 // Update/PUT all user profile by id
-router.put("/:id", async function (req, res) {
+router.put("/:id", userShouldBeLoggedIn, async function (req, res) {
   // get user by id and assign it to userId
   let userId = req.params.id;
   let {
