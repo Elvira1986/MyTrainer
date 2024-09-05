@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../model/helper");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn")
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 const saltRounds = 10;
 
 // AUTH
@@ -14,7 +14,16 @@ const saltRounds = 10;
 const supersecret = process.env.SUPER_SECRET;
 
 router.post("/register", async (req, res) => {
-    const { username, password, first_name, last_name, height, weight, gender, goal } = req.body;
+  const {
+    username,
+    password,
+    first_name,
+    last_name,
+    height,
+    weight,
+    gender,
+    goal,
+  } = req.body;
 
     try {
         const hash = await bcrypt.hash(password, saltRounds);
@@ -29,42 +38,43 @@ router.post("/register", async (req, res) => {
         res.send({ message: "Register successful", user: results.data[0] });
     } catch (err) {
     res.send({ message: err.message });
-    }
+  }
 });
 
 router.post("/login", async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    try {
+  try {
     const results = await db(
-        `SELECT * FROM users WHERE username = "${username}"`
+      `SELECT * FROM users WHERE username = "${username}"`
     );
     const user = results.data[0];
     if (user) {
-        const user_id = user.id;
+      const user_id = user.id;
 
-        const correctPassword = await bcrypt.compare(password, user.password);
+      const correctPassword = await bcrypt.compare(password, user.password);
 
-        if (!correctPassword) {
-            res.status(400).send({message: "Incorrect password"})
-        }
+      if (!correctPassword) {
+        res.status(400).send({ message: "Incorrect password" });
+      }
 
         const token = jwt.sign({ user_id }, supersecret);
         res.status(200).send({ message: "Login successful, here is your token", token, user: results.data[0] });
     } else {
-        res.status(400).send({message: "User does not exist"})
+      res.status(400).send({ message: "User does not exist" });
     }
-    } catch (err) {
+  } catch (err) {
     res.status(400).send({ message: err.message });
-    }
+  }
 });
 
 
 
 router.get("/profile", userShouldBeLoggedIn, async (req, res) => {
-    const results = await db(`SELECT username, first_name, last_name, height, weight, gender, goal FROM users WHERE id = ${req.user_id}`);
-    res.send(results.data[0]);
+  const results = await db(
+    `SELECT username, first_name, last_name, height, weight, gender, goal FROM users WHERE id = ${req.user_id}`
+  );
+  res.send(results.data[0]);
 });
-
 
 module.exports = router;

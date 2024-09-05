@@ -33,7 +33,7 @@
 }
 
 label {
-  color: aliceblue;
+  color: #e5e5e5;
 }
 
 .field {
@@ -43,4 +43,8 @@ label {
 }
 span {
   padding-right: 20px;
+}
+
+.alert {
+  color: #e5e5e5;
 }
