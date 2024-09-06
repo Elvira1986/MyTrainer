@@ -34,7 +34,7 @@ function Meals() {
     let url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${appId}&app_key=${appKey}`;
 
     // Fetching chicken recipes on initial load
-    if (random) {
+    if (random) { // if random is true search chicken else .... What is random and where do you declare it??
       url += `&q=chicken`;
     } else if (query) {
       url += `&q=${query}`;

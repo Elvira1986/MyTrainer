@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
 
@@ -17,7 +18,7 @@ function Register() {
     const [credentials, setCredentials] = useState(initialCredentials);
 
     const [data, setData] = useState(null);
-    const [userData, setUserData] = useState(null);
+    const navigate = useNavigate()
 
     const {
         username,
@@ -47,7 +48,7 @@ function Register() {
         localStorage.setItem("token", data.token);
         console.log(data.message, data.token);
         setData(data.message);
-        setUserData(data.user)
+        navigate(`/profile`)
         } catch (error) {
         console.log(error);
         setData(error.message);

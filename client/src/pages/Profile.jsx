@@ -21,30 +21,39 @@ function Profile() {
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-
-  // Geting User with specific id and passing this data to front end
-  const getUser = async () => {
-    // create fetch option for get user by id
-    let options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    };
-    console.log(id);
-    try {
-      const response = await fetch(`/api/users/:{id}`, options);
-      const data = await response.json();
-      setUser(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    getUser();
-  }, [id]);
+    // Retrieve user data from local storage
+    const user = localStorage.getItem("user");
+    if (user) {
+        setUserData(JSON.parse(user));
+    }
+  }, []);
+
+  // Geting User with specific id and passing this data to front end
+  // const getUser = async () => {
+  //   // create fetch option for get user by id
+  //   let options = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: "Bearer " + localStorage.getItem("token"),
+  //     },
+  //   };
+  //   console.log(id);
+  //   try {
+  //     const response = await fetch(`/api/users/:{id}`, options);// We are not going to be using id instead we will use username here (MORE SECURE)
+  //     const data = await response.json();
+  //     setUser(data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getUser();
+  // }, [id]);
 
   // DELETE the User
   async function deleteUser() {
@@ -153,18 +162,18 @@ function Profile() {
         ) : (
           <div className="Profile">
             <h1>Personal Info</h1>
-            <p>Username: {user.username}</p>
-            <p>First Name: {user.first_name}</p>
-            <p>Last Name: {user.last_name}</p>
+            <p>Username: {userData.username}</p>
+            <p>First Name: {userData.first_name}</p>
+            <p>Last Name: {userData.last_name}</p>
             <p>
-              <span>Height: {user.height} cm</span>{" "}
+              <span>Height: {userData.height} cm</span>{" "}
             </p>
             <p>
-              <span>Weght: {user.weight} kg</span>
+              <span>Weght: {userData.weight} kg</span>
             </p>
 
-            <p>Gender: {user.gender}</p>
-            <p>Goal: {user.goal}</p>
+            <p>Gender: {userData.gender}</p>
+            <p>Goal: {userData.goal}</p>
 
             <div className="Buttons">
               <button onClick={editMode}>Update</button>

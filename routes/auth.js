@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
 
         const results = await db(`SELECT username, first_name, last_name, height, weight, gender, goal FROM users WHERE username = "${username}"`);
 
-        res.send({ message: "Register successful", user: results.data[0] });
+        res.send({ message: "Register successful"});
     } catch (err) {
     res.send({ message: err.message });
   }
