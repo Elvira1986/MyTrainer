@@ -32,24 +32,24 @@ function Profile() {
   }, []);
 
   // Geting User with specific id and passing this data to front end
-  // const getUser = async () => {
-  //   // create fetch option for get user by id
-  //   let options = {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: "Bearer " + localStorage.getItem("token"),
-  //     },
-  //   };
-  //   console.log(id);
-  //   try {
-  //     const response = await fetch(`/api/users/:{id}`, options);// We are not going to be using id instead we will use username here (MORE SECURE)
-  //     const data = await response.json();
-  //     setUser(data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  const getUser = async () => {
+    // create fetch option for get user by id
+    let options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+    console.log(id);
+    try {
+      const response = await fetch(`/api/auth/profile`, options);
+      const data = await response.json();
+      setUser(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // useEffect(() => {
   //   getUser();
@@ -65,16 +65,16 @@ function Profile() {
         authorization: "Bearer " + localStorage.getItem("token"),
       },
     };
-    console.log(id);
+
     try {
-      let response = await fetch(`/api/users/:{id}`, options);
+      let response = await fetch(`/api/auth/profile`, options);
       if (response.ok) {
         let data = await response.json();
         // Send user to home page
         navigate(`/`);
+        localStorage.removeItem("token");
         // set to log out
         //  Need to DOOOOO
-        // delete user with specific id and sent to database
         setUser(data);
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
@@ -91,11 +91,14 @@ function Profile() {
     // Do the PATCH by creating fetch options
     let options = {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
       body: JSON.stringify(body),
     };
     try {
-      let response = await fetch(`/api/users/:{id}`, options);
+      let response = await fetch(`/api/auth/profile`, options);
       if (response.ok) {
         let data = await response.json();
         setUser(data);
@@ -146,17 +149,26 @@ function Profile() {
                   value={user.weight}
                 />
               </label>
-              <label>
-                Update Goal:
-                <input
-                  className="profileInput"
-                  type="text"
-                  name="goal"
-                  onChange={handleInput}
-                  value={user.goal}
-                />
-              </label>
-              <button type="submit">Update</button>
+
+              <label>Update Goal </label>
+              <select
+                value={user.goal}
+                onChange={handleInput}
+                name="goal"
+                type="text"
+                className="form-control mb-2"
+              >
+                <option value="Loose Weight">Loose Weight</option>
+                <option value="Get fit" selected>
+                  Get fit
+                </option>
+                <option value="Increase strength">Increase strength</option>
+                <option value="Gain weight">Gain weight</option>
+              </select>
+
+              <button className="update" type="submit">
+                Update
+              </button>
             </form>
           </div>
         ) : (
