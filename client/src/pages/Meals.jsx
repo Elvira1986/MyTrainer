@@ -144,6 +144,10 @@ function Meals() {
             <p className="recipe-description">
               {Math.round(recipe.recipe.calories)} CALORIES | {recipe.recipe.ingredientLines.length} INGREDIENTS
             </p>
+            {/* Link to the recipe */}
+            <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer" className="recipe-link">
+              View Recipe
+            </a>
             <button
               className={`favorite-button ${favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'favorited' : ''}`}
               onClick={() => toggleFavorite(recipe)}
