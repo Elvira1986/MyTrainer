@@ -69,9 +69,6 @@ router.post("/login", async (req, res) => {
 });
 
 
-
-console.log(userShouldBeLoggedIn, "meeee");
-
 // Display/GET info based on login user
 router.get("/profile", userShouldBeLoggedIn, async (req, res) => {
   const results = await db(
