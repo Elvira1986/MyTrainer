@@ -21,15 +21,6 @@ function Profile() {
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    // Retrieve user data from local storage
-    const user = localStorage.getItem("user");
-    if (user) {
-        setUserData(JSON.parse(user));
-    }
-  }, []);
 
   // Geting User with specific id and passing this data to front end
   const getUser = async () => {
@@ -51,9 +42,9 @@ function Profile() {
     }
   };
 
-  // useEffect(() => {
-  //   getUser();
-  // }, [id]);
+  useEffect(() => {
+    getUser();
+  }, [id]);
 
   // DELETE the User
   async function deleteUser() {
@@ -159,7 +150,7 @@ function Profile() {
                 className="form-control mb-2"
               >
                 <option value="Loose Weight">Loose Weight</option>
-                <option value="Get fit" selected>
+                <option value="Get fit" >
                   Get fit
                 </option>
                 <option value="Increase strength">Increase strength</option>
@@ -174,18 +165,18 @@ function Profile() {
         ) : (
           <div className="Profile">
             <h1>Personal Info</h1>
-            <p>Username: {userData.username}</p>
-            <p>First Name: {userData.first_name}</p>
-            <p>Last Name: {userData.last_name}</p>
+            <p>Username: {user.username}</p>
+            <p>First Name: {user.first_name}</p>
+            <p>Last Name: {user.last_name}</p>
             <p>
-              <span>Height: {userData.height} cm</span>{" "}
+              <span>Height: {user.height} cm</span>{" "}
             </p>
             <p>
-              <span>Weght: {userData.weight} kg</span>
+              <span>Weght: {user.weight} kg</span>
             </p>
 
-            <p>Gender: {userData.gender}</p>
-            <p>Goal: {userData.goal}</p>
+            <p>Gender: {user.gender}</p>
+            <p>Goal: {user.goal}</p>
 
             <div className="Buttons">
               <button onClick={editMode}>Update</button>
