@@ -20,9 +20,9 @@ CREATE TABLE `favorite_exercises`(
 CREATE TABLE `favorite_food`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `users_id` INT NOT NULL,
-    `external_api_id` INT NOT NULL,
-    `name` VARCHAR(255),
-    `image` VARCHAR(255) 
+    `external_api_id` VARCHAR(5000) NOT NULL,
+    `name` VARCHAR(1000),
+    `image` VARCHAR(5000) 
 );
 
 CREATE TABLE `users`(
@@ -40,7 +40,7 @@ CREATE TABLE `users`(
 CREATE TABLE `exercises`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255),
-    `description` VARCHAR(855),
+    `description` VARCHAR(5000),
     `goal` VARCHAR(255),
     `muscles` VARCHAR(255),
     `category` VARCHAR(255),
