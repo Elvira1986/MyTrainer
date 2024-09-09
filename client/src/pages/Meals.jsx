@@ -39,7 +39,7 @@ function Meals() {
     } else if (query) {
       url += `&q=${query}`;
     }
-
+    
     if (diet) {
       url += `&diet=${diet}`;
     }
@@ -76,13 +76,43 @@ function Meals() {
   }, []);
 
   // Function to toggle a recipe as favorite
-  const toggleFavorite = (recipe) => {
+  const toggleFavorite = async (recipe) => {
     const isFavorite = favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri);
 
     if (isFavorite) {
-      setFavorites(favorites.filter((fav) => fav.recipe.uri !== recipe.recipe.uri));
+      setFavorites(favorites.filter((fav) => fav.recipe.uri !== recipe.recipe.uri))
+      console.log(recipe.uri)
+
+      let options = {
+        method: "DELETE",
+        headers: { authorization: "Bearer " + localStorage.getItem("token"), "Content-Type": "application/json" },
+        body: JSON.stringify({external_api_id: recipe.recipe.uri})
+      }
+      try {
+        const response = await fetch("/api/favfoods/food", options);
+        console.log(response);
+      } catch (err) {
+        setError(`Network error: ${error.message}`)
+      }
+      
     } else {
       setFavorites([...favorites, recipe]);
+      console.log(recipe)
+      let options = {
+        method: "POST",
+        headers: { authorization: "Bearer " + localStorage.getItem("token"), "Content-Type": "application/json" },
+        body: JSON.stringify({
+          external_api_id: recipe.recipe.uri,
+          name: recipe.recipe.label,
+          image: recipe.recipe.image
+        })
+      }
+      try {
+        const response = await fetch("/api/favfoods/food", options);
+        console.log(response);
+      } catch (err) {
+        setError(`Network error: ${error.message}`)
+      }
     }
   };
 
