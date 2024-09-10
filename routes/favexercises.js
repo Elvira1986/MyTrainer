@@ -23,9 +23,6 @@ router.post("/favourites", userShouldBeLoggedIn, async (req, res) => {
   }
 });
 
-// MySQL for Insert
-// INSERT INTO favorite_exercises (users_id, exercises_id)
-
 // Display/GET fav_exercises of login user, will only display user id and exercise id
 router.get("/favourites", userShouldBeLoggedIn, async (req, res) => {
   const userId = req.user_id;
@@ -58,13 +55,6 @@ router.delete("/favourites", userShouldBeLoggedIn, async (req, res) => {
   }
 });
 
-// AND users_id = ${userId} for line 58 and 61
-// WHERE users_id = ${userId} for line 63
-
 // SELECT favorite_exercises.*, users.id, exercises.id, exercises.name, exercises.image, exercises.goal, exercises.muscles, exercises.category FROM favorite_exercises LEFT JOIN users ON users.id=favorite_exercises.users_id LEFT JOIN exercises ON exercises.id = favorite_exercises.exercises_id;
-
-// INSERT INTO favorite_exercises (users_id, exercises_id) SELECT ${req.user_id}, ${exercises.id}WHERE EXISTS ( SELECT 1 FROM users WHERE users_id = ${req.user_id}) AND EXISTS ( SELECT 1 FROM exercises WHERE exercises_id = ${exercises.id});
-
-// INSERT INTO favorite_exercises (users_id, exercises_id) SELECT 1, 2 WHERE EXISTS ( SELECT 1 FROM users WHERE users_id = 1) AND EXISTS ( SELECT 1 FROM exercises WHERE exercises_id = 2);
 
 module.exports = router;

@@ -29,7 +29,7 @@ const Exercises = () => {
   // Handle adding and removing from favorites
   const toggleFavorite = async (exercise) => {
     const isFavorite = favorites.find(
-      (fav) => fav.exercise.id === exercise.exercise.id
+      (fav) => fav.exercise.id === exercises.exercise.id
     );
 
     if (isFavorite) {
@@ -48,7 +48,7 @@ const Exercises = () => {
       try {
         const response = await fetch("/api/favexercises/favourites", options);
         console.log(response);
-      } catch (err) {
+      } catch (error) {
         setError(`Network error: ${error.message}`);
       }
     } else {
@@ -64,7 +64,7 @@ const Exercises = () => {
       try {
         const response = await fetch("/api/favexercises/favourites", options);
         console.log(response);
-      } catch (err) {
+      } catch (error) {
         setError(`Network error: ${error.message}`);
       }
     }
@@ -100,6 +100,7 @@ const Exercises = () => {
             />
             <h3>{exercise.name}</h3>
             <p>{exercise.description}</p>
+
             <button
               className={`favorite-button ${
                 favorites.find(
