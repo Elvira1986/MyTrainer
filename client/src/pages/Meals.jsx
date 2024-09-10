@@ -34,12 +34,12 @@ function Meals() {
     let url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${appId}&app_key=${appKey}`;
 
     // Fetching chicken recipes on initial load
-    if (random) {
+    if (random) { // if random is true search chicken else .... What is random and where do you declare it??
       url += `&q=chicken`;
     } else if (query) {
       url += `&q=${query}`;
     }
-
+    
     if (diet) {
       url += `&diet=${diet}`;
     }
@@ -76,13 +76,43 @@ function Meals() {
   }, []);
 
   // Function to toggle a recipe as favorite
-  const toggleFavorite = (recipe) => {
+  const toggleFavorite = async (recipe) => {
     const isFavorite = favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri);
 
     if (isFavorite) {
-      setFavorites(favorites.filter((fav) => fav.recipe.uri !== recipe.recipe.uri));
+      setFavorites(favorites.filter((fav) => fav.recipe.uri !== recipe.recipe.uri))
+      console.log(recipe.uri)
+
+      let options = {
+        method: "DELETE",
+        headers: { authorization: "Bearer " + localStorage.getItem("token"), "Content-Type": "application/json" },
+        body: JSON.stringify({external_api_id: recipe.recipe.uri})
+      }
+      try {
+        const response = await fetch("/api/favfoods/food", options);
+        console.log(response);
+      } catch (err) {
+        setError(`Network error: ${error.message}`)
+      }
+      
     } else {
       setFavorites([...favorites, recipe]);
+      console.log(recipe)
+      let options = {
+        method: "POST",
+        headers: { authorization: "Bearer " + localStorage.getItem("token"), "Content-Type": "application/json" },
+        body: JSON.stringify({
+          external_api_id: recipe.recipe.uri,
+          name: recipe.recipe.label,
+          image: recipe.recipe.image
+        })
+      }
+      try {
+        const response = await fetch("/api/favfoods/food", options);
+        console.log(response);
+      } catch (err) {
+        setError(`Network error: ${error.message}`)
+      }
     }
   };
 
@@ -144,6 +174,10 @@ function Meals() {
             <p className="recipe-description">
               {Math.round(recipe.recipe.calories)} CALORIES | {recipe.recipe.ingredientLines.length} INGREDIENTS
             </p>
+            {/* Link to the recipe */}
+            <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer" className="recipe-link">
+              View Recipe
+            </a>
             <button
               className={`favorite-button ${favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'favorited' : ''}`}
               onClick={() => toggleFavorite(recipe)}

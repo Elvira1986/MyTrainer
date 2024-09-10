@@ -150,7 +150,7 @@ function Profile() {
                 className="form-control mb-2"
               >
                 <option value="Loose Weight">Loose Weight</option>
-                <option value="Get fit" selected>
+                <option value="Get fit" >
                   Get fit
                 </option>
                 <option value="Increase strength">Increase strength</option>

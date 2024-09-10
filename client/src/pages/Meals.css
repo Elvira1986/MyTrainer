@@ -83,3 +83,10 @@ button.favorite {
 button.favorite:hover {
     background-color: #218838;
 }
+
+.recipe-link {
+  display: block;
+  margin-top: 5px;
+  color: blue; 
+  text-decoration: underline;
+}
