@@ -27,7 +27,7 @@ router.post("/favourites", userShouldBeLoggedIn, async (req, res) => {
 router.get("/favourites", userShouldBeLoggedIn, async (req, res) => {
   const userId = req.user_id;
   const results = await db(
-    `SELECT favorite_exercises.*, users.id, exercises.id, exercises.name, exercises.image, exercises.goal, exercises.muscles, exercises.category FROM favorite_exercises LEFT JOIN users ON users.id=favorite_exercises.users_id LEFT JOIN exercises ON exercises.id = favorite_exercises.exercises_id WHERE users_id=${userId}`
+    `SELECT favorite_exercises.*, users.id, exercises.id, exercises.name, exercises.image, exercises.description, exercises.goal, exercises.muscles, exercises.category FROM favorite_exercises LEFT JOIN users ON users.id=favorite_exercises.users_id LEFT JOIN exercises ON exercises.id = favorite_exercises.exercises_id WHERE users_id=${userId}`
   );
 
   res.send(results.data);
@@ -47,7 +47,7 @@ router.delete("/favourites", userShouldBeLoggedIn, async (req, res) => {
       );
     }
     const result = await db(
-      `SELECT favorite_exercises.*, users.id, exercises.id, exercises.name, exercises.image, exercises.goal, exercises.muscles, exercises.category FROM favorite_exercises LEFT JOIN users ON users.id=favorite_exercises.users_id LEFT JOIN exercises ON exercises.id = favorite_exercises.exercises_id WHERE users_id=${req.user_id};`
+      `SELECT favorite_exercises.*, users.id, exercises.id, exercises.name, exercises.image, exercises.description, exercises.goal, exercises.muscles, exercises.category FROM favorite_exercises LEFT JOIN users ON users.id=favorite_exercises.users_id LEFT JOIN exercises ON exercises.id = favorite_exercises.exercises_id WHERE users_id=${req.user_id};`
     );
     res.send(result.data);
   } catch (err) {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Login from "../components/Login.jsx";
 import Register from "../components/Register.jsx";
 import Modal from "../components/Modal.jsx";
+import MovieClip from "../components/YouTube.jsx";
 
 function Home() {
   const [showRegister, setShowRegister] = useState(false);
@@ -28,12 +29,15 @@ function Home() {
       <div className="intro">
         <h1>Welcome to My Trainer</h1>
         <p>
-          We are here for you to change your life and transform your body and
-          mind to the best possible way. You can check it out this App to seach
-          for your exercises and food recipies that will keep you motivated in
+          This app is here for you to change your life and transform your body
+          and mind to the best possible way. You can check, follow and favorite
+          exercises and search for food recipies that will keep you motivated in
           your journey of long healthy life and "Happy Days" - per Sofia when
           this app works properly.
         </p>
+        <div>
+          <MovieClip />
+        </div>
         <p>What is the connection between food and exercise?</p>
         <p>
           There is an undeniable relationship between food and exercise. Food
