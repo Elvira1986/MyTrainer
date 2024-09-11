@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import './Meals.css'; // External CSS file
+import { useState, useEffect } from "react";
+import "./Meals.css"; // External CSS file
 
 function Meals() {
   // State to hold the search query entered by the user
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   // State to hold the selected diet filter (e.g., balanced, high-protein)
-  const [diet, setDiet] = useState('');
+  const [diet, setDiet] = useState("");
 
   // State to hold the selected allergy filter (e.g., gluten-free, dairy-free)
-  const [allergies, setAllergies] = useState('');
+  const [allergies, setAllergies] = useState("");
 
   // State to hold the list of recipes returned from the API
   const [recipes, setRecipes] = useState([]);
@@ -21,25 +21,26 @@ function Meals() {
   const [loading, setLoading] = useState(false);
 
   // State to hold error messages
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   // Function to handle the API request and fetch recipes based on the user's input
   const searchRecipes = async (random = false) => {
-    setError('');
+    setError("");
 
-    const appId = '7828a26c'; // Use your application ID for the EDAMAM API
-    const appKey = 'af250104f405a82bf082713bef547173'; // Use your application key for the EDAMAM API
+    const appId = "7828a26c"; // Use your application ID for the EDAMAM API
+    const appKey = "af250104f405a82bf082713bef547173"; // Use your application key for the EDAMAM API
 
     // Construct the API URL with the query, diet, and allergy parameters
     let url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${appId}&app_key=${appKey}`;
 
     // Fetching chicken recipes on initial load
-    if (random) { // if random is true search chicken else .... What is random and where do you declare it??
+    if (random) {
+      // if random is true search chicken else .... What is random and where do you declare it??
       url += `&q=chicken`;
     } else if (query) {
       url += `&q=${query}`;
     }
-    
+
     if (diet) {
       url += `&diet=${diet}`;
     }
@@ -57,14 +58,14 @@ function Meals() {
       const data = await response.json();
 
       if (data.hits.length === 0) {
-        setError('No recipes found. Please try a different query or filters.');
+        setError("No recipes found. Please try a different query or filters.");
         setRecipes([]);
       } else {
         setRecipes(data.hits);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setError('Failed to fetch recipes. Please try again later.');
+      console.error("Error fetching data:", error);
+      setError("Failed to fetch recipes. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -77,41 +78,50 @@ function Meals() {
 
   // Function to toggle a recipe as favorite
   const toggleFavorite = async (recipe) => {
-    const isFavorite = favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri);
+    const isFavorite = favorites.find(
+      (fav) => fav.recipe.uri === recipe.recipe.uri
+    );
 
     if (isFavorite) {
-      setFavorites(favorites.filter((fav) => fav.recipe.uri !== recipe.recipe.uri))
-      console.log(recipe.uri)
+      setFavorites(
+        favorites.filter((fav) => fav.recipe.uri !== recipe.recipe.uri)
+      );
+      console.log(recipe.uri);
 
       let options = {
         method: "DELETE",
-        headers: { authorization: "Bearer " + localStorage.getItem("token"), "Content-Type": "application/json" },
-        body: JSON.stringify({external_api_id: recipe.recipe.uri})
-      }
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ external_api_id: recipe.recipe.uri }),
+      };
       try {
         const response = await fetch("/api/favfoods/food", options);
         console.log(response);
       } catch (err) {
-        setError(`Network error: ${error.message}`)
+        setError(`Network error: ${error.message}`);
       }
-      
     } else {
       setFavorites([...favorites, recipe]);
-      console.log(recipe)
+      console.log(recipe);
       let options = {
         method: "POST",
-        headers: { authorization: "Bearer " + localStorage.getItem("token"), "Content-Type": "application/json" },
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           external_api_id: recipe.recipe.uri,
           name: recipe.recipe.label,
-          image: recipe.recipe.image
-        })
-      }
+          image: recipe.recipe.image,
+        }),
+      };
       try {
         const response = await fetch("/api/favfoods/food", options);
         console.log(response);
       } catch (err) {
-        setError(`Network error: ${error.message}`)
+        setError(`Network error: ${error.message}`);
       }
     }
   };
@@ -143,7 +153,10 @@ function Meals() {
         </select>
 
         {/* Dropdown menu for selecting an allergy filter */}
-        <select value={allergies} onChange={(e) => setAllergies(e.target.value)}>
+        <select
+          value={allergies}
+          onChange={(e) => setAllergies(e.target.value)}
+        >
           <option value="">Select Allergy</option>
           <option value="gluten-free">Gluten-Free</option>
           <option value="peanut-free">Peanut-Free</option>
@@ -157,7 +170,7 @@ function Meals() {
 
         {/* Button to trigger the searchRecipes function when clicked */}
         <button onClick={() => searchRecipes()} disabled={loading}>
-          {loading ? 'Searching...' : 'Search'}
+          {loading ? "Searching..." : "Search"}
         </button>
       </div>
 
@@ -168,21 +181,37 @@ function Meals() {
       <div className="recipe-grid">
         {recipes.map((recipe, index) => (
           <div key={index} className="recipe-card">
-            <img src={recipe.recipe.image} alt={recipe.recipe.label} className="recipe-image" />
+            <img
+              src={recipe.recipe.image}
+              alt={recipe.recipe.label}
+              className="recipe-image"
+            />
             <h3>{recipe.recipe.label}</h3>
-            <p>{recipe.recipe.dishType?.join(', ')}</p>
+            <p>{recipe.recipe.dishType?.join(", ")}</p>
             <p className="recipe-description">
-              {Math.round(recipe.recipe.calories)} CALORIES | {recipe.recipe.ingredientLines.length} INGREDIENTS
+              {Math.round(recipe.recipe.calories)} CALORIES |{" "}
+              {recipe.recipe.ingredientLines.length} INGREDIENTS
             </p>
             {/* Link to the recipe */}
-            <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer" className="recipe-link">
+            <a
+              href={recipe.recipe.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="recipe-link"
+            >
               View Recipe
             </a>
             <button
-              className={`favorite-button ${favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'favorited' : ''}`}
+              className={`favorite-button ${
+                favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri)
+                  ? "favorited"
+                  : ""
+              }`}
               onClick={() => toggleFavorite(recipe)}
             >
-              {favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri) ? 'Remove' : 'Add'}
+              {favorites.find((fav) => fav.recipe.uri === recipe.recipe.uri)
+                ? "Remove"
+                : "Add"}
             </button>
           </div>
         ))}

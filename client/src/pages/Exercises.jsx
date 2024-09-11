@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import "./Exercises.css";
 
 const Exercises = () => {
   // State to hold exercises and favorites
   const [exercises, setExercises] = useState([]);
+
+  // State to hold the list of favorite exercises
   const [favorites, setFavorites] = useState([]);
   // State to hold error messages
-  const [error, setError] = useState([]);
+  const [error, setError] = useState("");
 
   // Fetch exercises from the API
   useEffect(() => {
@@ -16,7 +19,7 @@ const Exercises = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data); // Log the fetched data for debugging
+        // console.log(data); // Log the fetched data for debugging
         setExercises(data); // Set the fetched exercises
       } catch (error) {
         console.error("Failed to fetch exercises:", error);
@@ -26,16 +29,12 @@ const Exercises = () => {
     fetchExercises(); // Call the fetch function
   }, []);
 
-  // Handle adding and removing from favorites
+  // Handle adding and removing exercises from favorites
   const toggleFavorite = async (exercise) => {
-    const isFavorite = favorites.find(
-      (fav) => fav.exercise.id === exercises.exercise.id
-    );
+    const isFavorite = favorites.find((fav) => fav.id === exercise.id);
 
     if (isFavorite) {
-      setFavorites(
-        favorites.filter((fav) => fav.exercise.id !== exercise.exercise.id)
-      );
+      setFavorites(favorites.filter((fav) => fav.id !== exercise.id));
       console.log(exercise.id);
 
       let options = {
@@ -44,6 +43,7 @@ const Exercises = () => {
           authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ exercises_id: exercise.id }),
       };
       try {
         const response = await fetch("/api/favexercises/favourites", options);
@@ -53,18 +53,19 @@ const Exercises = () => {
       }
     } else {
       setFavorites([...favorites, exercise]);
-      console.log(exercise);
+      console.log(exercise.id);
       let options = {
         method: "POST",
         headers: {
           authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ exercises_id: exercise.id }),
       };
       try {
         const response = await fetch("/api/favexercises/favourites", options);
         console.log(response);
-      } catch (error) {
+      } catch (err) {
         setError(`Network error: ${error.message}`);
       }
     }
@@ -72,53 +73,66 @@ const Exercises = () => {
 
   // Render the exercise cards
   return (
-    <div
-      style={{
-        padding: "20px",
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-        gap: "20px",
-      }}
-    >
-      {exercises.length === 0 ? (
-        <p>No exercises found.</p>
-      ) : (
-        exercises.map((exercise) => (
-          <div
-            key={exercise.id}
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "10px",
-              textAlign: "center",
-            }}
-          >
-            <img
-              src={exercise.image}
-              alt={exercise.name}
-              style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-            />
-            <h3>{exercise.name}</h3>
-            <p>{exercise.description}</p>
-
-            <button
-              className={`favorite-button ${
-                favorites.find(
-                  (fav) => fav.exercise.id === exercise.exercise.id
-                )
-                  ? "favorited"
-                  : ""
-              }`}
-              onClick={() => toggleFavorite(exercise)}
+    <>
+      <h1>Check Out The Most Popular Exercises</h1>
+      <div
+        style={{
+          maxWidth: "1200px",
+          padding: "20px",
+          margin: "2rem",
+          display: "grid",
+          textAlign: "center",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gap: "2rem",
+        }}
+      >
+        {exercises.length === 0 ? (
+          <p>No exercises found.</p>
+        ) : (
+          exercises.map((exercise) => (
+            <div
+              key={exercise.id}
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                padding: "10px",
+                textAlign: "center",
+              }}
             >
-              {favorites.find((fav) => fav.exercise.id === exercise.exercise.id)
-                ? "Remove"
-                : "Add"}
-            </button>
-          </div>
-        ))
-      )}
-    </div>
+              <img
+                src={exercise.image}
+                alt={exercise.name}
+                style={{ width: "180px", height: "240px", borderRadius: "8px" }}
+              />
+              <h3>{exercise.name}</h3>
+              <p>{exercise.description}</p>
+
+              <button
+                className={`favorite-button ${
+                  favorites.find((fav) => fav.id === exercise.id)
+                    ? "favorited"
+                    : ""
+                }`}
+                onClick={() => toggleFavorite(exercise)}
+              >
+                {favorites.find((fav) => fav.id === exercise.id) ? (
+                  <i
+                    className="fa-solid fa-heart-circle-minus"
+                    title="Remove From Fav"
+                    style={{ color: " #073B4C" }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa-solid fa-heart-circle-plus"
+                    title="Add To Favorite"
+                  ></i>
+                )}
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+    </>
   );
 };
 

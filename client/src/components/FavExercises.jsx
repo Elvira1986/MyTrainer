@@ -58,7 +58,7 @@ const FavExercises = () => {
 
   return (
     <>
-      <h1>Fav Exercises</h1>
+      <h2>Fav Exercises</h2>
       <div
         className="favExercises"
         style={{
@@ -81,14 +81,17 @@ const FavExercises = () => {
             <img
               src={favExercise.image}
               alt={favExercise.name}
-              style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+              style={{ width: "180px", height: "240px", borderRadius: "8px" }}
             />
             <h3>{favExercise.name}</h3>
             <button
               type="button"
               onClick={() => deleteFavExercises(favExercise.exercises_id)}
             >
-              Delete
+              <i
+                className="fa-solid fa-heart-crack fa-fade"
+                title="Delete Favourite"
+              ></i>
             </button>
           </div>
         ))}

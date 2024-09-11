@@ -22,10 +22,18 @@ Some lines, acsent of website:
 Text:
 #073B4C - dark blue for headers h1 ... h6
 #342F2F -paragraph p and all other text */
-
+.intro {
+  max-width: 1200px;
+  padding: 2rem;
+}
+.intro ul li {
+  list-style: none;
+  text-align: left;
+  padding-left: 4rem;
+}
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #073b4c;
   text-decoration: inherit;
 }
 a:hover {
@@ -72,6 +80,6 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #ef476eab;
+    color: #ef476f;
   }
 }
