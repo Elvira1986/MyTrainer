@@ -75,37 +75,30 @@ const Exercises = () => {
   return (
     <>
       <h1>Check Out The Most Popular Exercises</h1>
-      <div
-        style={{
-          maxWidth: "1200px",
-          padding: "20px",
-          margin: "2rem",
-          display: "grid",
-          textAlign: "center",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "2rem",
-        }}
-      >
+      <div className="exercises">
         {exercises.length === 0 ? (
           <p>No exercises found.</p>
         ) : (
           exercises.map((exercise) => (
-            <div
-              key={exercise.id}
-              style={{
-                border: "1px solid #ccc",
-                borderRadius: "8px",
-                padding: "10px",
-                textAlign: "center",
-              }}
-            >
+            <div key={exercise.id} className="exercise">
               <img
                 src={exercise.image}
                 alt={exercise.name}
-                style={{ width: "180px", height: "240px", borderRadius: "8px" }}
+                className="exerciseImage"
               />
               <h3>{exercise.name}</h3>
+
               <p>{exercise.description}</p>
+              <p>
+                <span>
+                  <i className="fa-solid fa-universal-access"></i>{" "}
+                  {exercise.goal}
+                  <br />
+                </span>
+                <span>
+                  <i className="fa-solid fa-dumbbell"></i> {exercise.equipment}
+                </span>
+              </p>
 
               <button
                 className={`favorite-button ${
@@ -119,7 +112,7 @@ const Exercises = () => {
                   <i
                     className="fa-solid fa-heart-circle-minus"
                     title="Remove From Fav"
-                    style={{ color: " #073B4C" }}
+                    style={{ color: "#118ab2" }}
                   ></i>
                 ) : (
                   <i

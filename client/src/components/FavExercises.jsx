@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "../pages/Exercises.css";
 
 const FavExercises = () => {
   // get a list of fav exercises and display them
@@ -58,32 +59,17 @@ const FavExercises = () => {
 
   return (
     <>
-      <h2>Fav Exercises</h2>
-      <div
-        className="favExercises"
-        style={{
-          padding: "20px",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "20px",
-        }}
-      >
+      <h2>Favourites Exercises</h2>
+      <div className="favExercises">
         {favExercises.map((favExercise) => (
-          <div
-            key={favExercise.id}
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "10px",
-              textAlign: "center",
-            }}
-          >
+          <div className="exercise" key={favExercise.id}>
             <img
               src={favExercise.image}
               alt={favExercise.name}
-              style={{ width: "180px", height: "240px", borderRadius: "8px" }}
+              className="exerciseImage"
             />
             <h3>{favExercise.name}</h3>
+            <p>{favExercise.description}</p>
             <button
               type="button"
               onClick={() => deleteFavExercises(favExercise.exercises_id)}

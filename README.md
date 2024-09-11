@@ -28,6 +28,7 @@ Front-end: JavaScript/React, CSS3, HTML5
 
 ###Dependecies for front-end installation `client`:
 `npm install react-router-dom axios` - install react router and axios;
+`npm install react-youtube` - install Youtube component;
 
 ## Database Setup
 

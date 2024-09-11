@@ -189,7 +189,7 @@ function Meals() {
             <h3>{recipe.recipe.label}</h3>
             <p>{recipe.recipe.dishType?.join(", ")}</p>
             <p className="recipe-description">
-              {Math.round(recipe.recipe.calories)} CALORIES |{" "}
+              {Math.round(recipe.recipe.calories)} CALORIES <br />
               {recipe.recipe.ingredientLines.length} INGREDIENTS
             </p>
             {/* Link to the recipe */}
