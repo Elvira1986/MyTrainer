@@ -1,0 +1,14 @@
+.back h1 {
+  color: #fff;
+  /* font-family: "Old Standard TT", serif; */
+  padding: 9.5rem;
+  background-color: #118ab28e;
+}
+
+.find {
+  color: #ef476f;
+}
+
+.find:hover {
+  color: #ffd166;
+}
