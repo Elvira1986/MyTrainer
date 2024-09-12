@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import api from "../services/FavFoodRoutes";
 import "../pages/Favourites.css";
+import FoodDetails from "./FoodDetails";
+import Modal from "./Modal";
 
 function Favourites() {
   const [allFavFood, setAllFavFood] = useState(
@@ -13,7 +15,6 @@ function Favourites() {
 
   async function getAllFavFood() {
     api.getFood((response) => {
-      console.log(response);
       setAllFavFood(response);
     }, console.log);
   }
@@ -35,6 +36,8 @@ function Favourites() {
   }
 
   async function handleSelect(food) {
+    setSelectedFavFood([]);
+
     const apiId = "58badc2e";
     const apiKey =
       "2025bd60b7b10bf5334ca6e1f1b6a5d2";
@@ -65,117 +68,30 @@ function Favourites() {
     console.log("Clicked", food);
   }
 
-  // async function handleFavourite(e) {
-  //     console.log("Clicked")
-  // }
+  const closeModal = () => {
+    setSelectedFavFood(false);
+  };
 
   return (
     <div id="Favourites">
       <h2>Favourites</h2>
 
-      {selectedFavFood && (
-        <div>
-          {selectedFavFood.map((food) => (
-            <div key={food.recipe.uri}>
-              <h2> {food.recipe.label} </h2>
-              <div className="healthLabels">
-                {food.recipe.healthLabels.length >
-                  0 &&
-                  food.recipe.healthLabels.map(
-                    (label, index) => (
-                      <p key={index}>
-                        <mark>
-                          {""} # {label}{" "}
-                        </mark>
-                      </p>
-                    )
-                  )}
-              </div>
-
-              <div className="dietLabels">
-                {food.recipe.dietLabels.length >
-                  0 &&
-                  food.recipe.dietLabels.map(
-                    (label, index) => (
-                      <p key={index}>
-                        <mark>
-                          {""}# {label}{" "}
-                        </mark>
-                      </p>
-                    )
-                  )}
-              </div>
-
-              <p>
-                Servings: {food.recipe.yield}{" "}
-              </p>
-
-              <div className="ingredients">
-                {food.recipe.ingredientLines
-                  .length > 0 &&
-                  food.recipe.ingredientLines.map(
-                    (ingredient, index) => (
-                      <p key={index}>
-                        {ingredient}
-                      </p>
-                    )
-                  )}
-              </div>
-
-              {foodImage && (
-                <img
-                  src={food.recipe.image}
-                  alt={food.recipe.label}
-                />
-              )}
-
-              <p>
-                See how to make this delicious
-                dish{" "}
-                <a href={food.recipe.url}>here</a>
-                .
-              </p>
-
-              <div className="nutritionGrid">
-                <p className="span2cols">
-                  NUTRITION GUIDE
-                </p>
-                <p>Nutrient</p>
-                <p>Quantinty</p>
-              </div>
-
-              <div id="nutrition-grid">
-                {Object.entries(
-                  food.recipe.totalNutrients
-                ).map(
-                  ([key, nutrient], index) => (
-                    <div
-                      key={index}
-                      className="nutritionGrid"
-                    >
-                      <p>{nutrient.label}</p>
-                      <p>
-                        {Math.round(
-                          nutrient.quantity
-                        )}{" "}
-                        {nutrient.unit}
-                      </p>
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      <div>
+        {selectedFavFood && (
+          <Modal onClose={closeModal}>
+            <FoodDetails
+              selectedFavFood={selectedFavFood}
+              foodImage={foodImage}
+            />
+          </Modal>
+        )}
+      </div>
 
       {allFavFood && (
         <div>
           {allFavFood.map((food) => (
             <div key={food.id}>
-              <div
-                onClick={() => handleSelect(food)}
-              >
+              <div>
                 <h3> {food.name} </h3>
                 <img
                   src={food.image}
@@ -183,6 +99,11 @@ function Favourites() {
                 />
               </div>
               <br />
+              <button
+                onClick={() => handleSelect(food)}
+              >
+                See more
+              </button>
               <button
                 onClick={() => handleDelete(food)}
               >

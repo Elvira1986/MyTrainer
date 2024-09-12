@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../services/FavFoodRoutes";
+import FoodDetails from "../components/FoodDetails.jsx";
 import "./Meals.css"; // External CSS file
 
 function Meals() {
@@ -23,6 +24,10 @@ function Meals() {
 
   // State to hold error messages
   const [error, setError] = useState("");
+
+  const [foodImage, setFoodImage] = useState("");
+  const [selectedFood, setSelectedFood] =
+    useState([]);
 
   // Function to handle the API request and fetch recipes based on the user's input
   const searchRecipes = async (
@@ -92,7 +97,6 @@ function Meals() {
 
   async function handleFavFood(recipe) {
     api.postFood(recipe, (response) => {
-      console.log(response, err);
       setFavorites(response.data);
       setError(err);
     });
@@ -102,11 +106,15 @@ function Meals() {
     api.deleteFood(
       recipe.recipe.uri,
       (response) => {
-        console.log(response);
         setFavorites(response.data);
         setError(err);
       }
     );
+  }
+
+  async function handleSelect(recipe) {
+    setFoodImage(recipe.recipe.image);
+    setSelectedFood([recipe]);
   }
 
   return (
@@ -198,6 +206,15 @@ function Meals() {
         <p className="error-message">{error}</p>
       )}
 
+      <div>
+        {selectedFood && (
+          <FoodDetails
+            selectedFavFood={selectedFood}
+            foodImage={foodImage}
+          />
+        )}
+      </div>
+
       {/* Display the list of recipes in a grid layout */}
       <div className="recipe-grid">
         {recipes.map((recipe, index) => (
@@ -205,76 +222,54 @@ function Meals() {
             key={index}
             className="recipe-card"
           >
+            {/* Link to the recipe */}
+            <a
+              href={recipe.recipe.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="recipe-link"
+            >
+              View Recipe
+            </a>
             <img
               src={recipe.recipe.image}
               alt={recipe.recipe.label}
               className="recipe-image"
             />
-            <div
-              key={index}
-              className="recipe-card"
-            >
-              <img
-                src={recipe.recipe.image}
-                alt={recipe.recipe.label}
-                className="recipe-image"
-              />
-              <h3>{recipe.recipe.label}</h3>
-              <p>
-                {recipe.recipe.dishType?.join(
-                  ", "
-                )}
-              </p>
-              <p>
-                {recipe.recipe.dishType?.join(
-                  ", "
-                )}
-              </p>
-              <p className="recipe-description">
-                {Math.round(
-                  recipe.recipe.calories
-                )}{" "}
-                CALORIES |{" "}
-                {
-                  recipe.recipe.ingredientLines
-                    .length
-                }{" "}
-                INGREDIENTS
-                {Math.round(
-                  recipe.recipe.calories
-                )}{" "}
-                CALORIES <br />
-                {
-                  recipe.recipe.ingredientLines
-                    .length
-                }{" "}
-                INGREDIENTS
-              </p>
-              {/* Link to the recipe */}
-              <a
-                href={recipe.recipe.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="recipe-link"
-              >
-                View Recipe
-              </a>
+            <h3>{recipe.recipe.label}</h3>
+            <p>
+              {recipe.recipe.dishType?.join(", ")}
+            </p>
+            <p className="recipe-description">
+              {Math.round(recipe.recipe.calories)}{" "}
+              CALORIES |{" "}
+              {
+                recipe.recipe.ingredientLines
+                  .length
+              }{" "}
+              INGREDIENTS
+            </p>
 
-              <button
-                onClick={() =>
-                  handleFavFood(recipe)
-                }
-              >
-                FAV
-              </button>
-              <button
-                onClick={() =>
-                  handleDelFavFood(recipe)
-                }
-              >
-                DEL
-              </button>
-            </div>
+            <button
+              onClick={() => handleSelect(recipe)}
+            >
+              See more
+            </button>
+
+            <button
+              onClick={() =>
+                handleFavFood(recipe)
+              }
+            >
+              FAV
+            </button>
+            <button
+              onClick={() =>
+                handleDelFavFood(recipe)
+              }
+            >
+              DEL
+            </button>
           </div>
         ))}
       </div>
