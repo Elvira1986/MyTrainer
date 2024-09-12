@@ -1,0 +1,47 @@
+.exercises,
+.favExercises {
+  max-width: 1200px;
+  padding: 20px;
+  margin: 2rem;
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.exercise {
+  border: 2px solid #118ab2;
+  border-radius: 8px;
+  padding: 10px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 20px 5px;
+}
+
+.exerciseImage {
+  width: 180px;
+  height: 240px;
+}
+
+.fa-solid {
+  color: #ffd166;
+  font-size: 28px;
+}
+
+.fa-solid:hover {
+  color: #06d6a0;
+  font-size: 28px;
+}
+
+.fa-dumbbell:hover,
+.fa-universal-access:hover {
+  color: #ffd166;
+}

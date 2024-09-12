@@ -38,6 +38,7 @@ function Meals() {
     let url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${apiId}&app_key=${apiKey}`;
 
     // Fetching chicken recipes on initial load
+
     if (random) {
       // if random is true search chicken else .... What is random and where do you declare it??
       url += `&q=chicken`;
@@ -209,55 +210,71 @@ function Meals() {
               alt={recipe.recipe.label}
               className="recipe-image"
             />
-            <h3>{recipe.recipe.label}</h3>
-            <p>
-              {recipe.recipe.dishType?.join(", ")}
-            </p>
-            <p className="recipe-description">
-              {Math.round(recipe.recipe.calories)}{" "}
-              CALORIES |{" "}
-              {
-                recipe.recipe.ingredientLines
-                  .length
-              }{" "}
-              INGREDIENTS
-            </p>
-            {/* <button
-              className={`favorite-button ${
-                favorites.find(
-                  (fav) =>
-                    fav. ===
-                    recipe.recipe.uri
-                )
-                  ? "favorited"
-                  : ""
-              }`}
-              onClick={() =>
-                toggleFavorite(recipe)
-              }
+            <div
+              key={index}
+              className="recipe-card"
             >
-              {favorites.find(
-                (fav) =>
-                  fav.recipe.uri ===
-                  recipe.recipe.uri
-              )
-                ? "Remove"
-                : "Add"}
-            </button> */}
-            <button
-              onClick={() =>
-                handleFavFood(recipe)
-              }
-            >
-              FAV
-            </button>
-            <button
-              onClick={() =>
-                handleDelFavFood(recipe)
-              }
-            >
-              DEL
-            </button>
+              <img
+                src={recipe.recipe.image}
+                alt={recipe.recipe.label}
+                className="recipe-image"
+              />
+              <h3>{recipe.recipe.label}</h3>
+              <p>
+                {recipe.recipe.dishType?.join(
+                  ", "
+                )}
+              </p>
+              <p>
+                {recipe.recipe.dishType?.join(
+                  ", "
+                )}
+              </p>
+              <p className="recipe-description">
+                {Math.round(
+                  recipe.recipe.calories
+                )}{" "}
+                CALORIES |{" "}
+                {
+                  recipe.recipe.ingredientLines
+                    .length
+                }{" "}
+                INGREDIENTS
+                {Math.round(
+                  recipe.recipe.calories
+                )}{" "}
+                CALORIES <br />
+                {
+                  recipe.recipe.ingredientLines
+                    .length
+                }{" "}
+                INGREDIENTS
+              </p>
+              {/* Link to the recipe */}
+              <a
+                href={recipe.recipe.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="recipe-link"
+              >
+                View Recipe
+              </a>
+
+              <button
+                onClick={() =>
+                  handleFavFood(recipe)
+                }
+              >
+                FAV
+              </button>
+              <button
+                onClick={() =>
+                  handleDelFavFood(recipe)
+                }
+              >
+                DEL
+              </button>
+            </div>
           </div>
         ))}
       </div>

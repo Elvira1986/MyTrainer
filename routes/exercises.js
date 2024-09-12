@@ -36,4 +36,22 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+// Show/GET one exercise based on id:
+router.put("/:id", async function (req, res, next) {
+  let exerciseId = req.params.id;
+  try {
+    let result = await db(`SELECT * FROM exercises WHERE id = ${exerciseId}`);
+    // Was the exercise found?
+    if (result.data.length === 1) {
+      // Yes, exercise exist
+      res.send(result.data[0]); // return exercise obj from array of results
+    } else {
+      // No exercise wasn't found with specific id ID
+      res.status(404).send({ error: "Exercise not found" });
+    }
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
 module.exports = router;

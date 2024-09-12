@@ -1,85 +1,101 @@
 .meals-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  /* margin: 0 auto; */
+  padding: 20px;
 }
 
 .search-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+  margin-left: 2rem;
 }
 
-input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    flex: 2;
+input[type="text"],
+select {
+  border: 2px solid #06d6a0;
+  padding: 20px;
+  font-size: 16px;
+  flex: 2;
+  border-radius: 8px;
+  margin: 10px;
 }
 
 select {
-    padding: 10px;
-    font-size: 16px;
-    flex: 1;
-}
-
-button {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
+  flex: 1;
 }
 
 .error-message {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
+
+/* .recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+} */
 
 .recipe-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+  max-width: 1200px;
+  padding: 20px;
+  margin: 2rem;
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
 }
-
 .recipe-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
+  border: 2px solid #06d6a0;
+  border-radius: 8px;
+  padding: 10px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .recipe-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #118ab2;
 }
 
 .recipe-card h3 {
-    margin: 10px 0;
-    font-size: 20px;
+  margin: 10px 0;
+  font-size: 20px;
 }
 
 .recipe-card p {
-    font-size: 16px;
-    color: #555;
+  font-size: 16px;
+  color: #555;
 }
 
 button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
+  color: white;
+  border: none;
+  /* padding: 10px; */
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+.recipe-link {
+  display: block;
+  background-color: #06d6a0;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
 }
 
-/* Style for the favorite button when a recipe is marked as favorite */
-button.favorite {
-    background-color: #28a745;
-}
-
-button.favorite:hover {
-    background-color: #218838;
+@media screen and (max-width: 600px) {
+  .search-controls {
+    margin: 0 auto;
+    display: inline-block;
+  }
 }

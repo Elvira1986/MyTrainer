@@ -1,14 +1,17 @@
 # MyTrainer MVP
 
+This app is here for you to change your life and transform your body and mind to the best possible way.
+There is an undeniable relationship between food and exercise. Food provides energy. Exercise burns energy. A good partnership between workouts and balanced diet can stimulate positive body changes. Good nutrition can help boosting any exercising routine by gaining the lean body mass and losing fat. You can check, follow and favorite exercises and search for food recipies and save them for later that will keep you motivated in your journey of long healthy life.
+
 ## Database Schema
 
-add picture of our database - coming soon
+<img src="./client/src/assets/MyTrainerDatabase.jpg" alt="MyTrainerDatabase" />
 
 ## Used Technologies
 
 Back-end: MySQL, Node.js/Express
 
-Front-end: JavaScript/React, CSS3, HTML5
+Front-end: JavaScript/ReactJS, CSS3, HTML5
 
 ## Prerequisites for back-end to install
 
@@ -28,6 +31,7 @@ Front-end: JavaScript/React, CSS3, HTML5
 
 ###Dependecies for front-end installation `client`:
 `npm install react-router-dom axios` - install react router and axios;
+`npm install react-youtube` - install Youtube component;
 
 ## Database Setup
 
@@ -35,20 +39,21 @@ Front-end: JavaScript/React, CSS3, HTML5
   `CREATE DATABASE mytrainer;`
 - Use the provided _init_db.sql_ file to import the initial database tables `npm run migrate` in back end terminal
 - Ensure the tables have been correctly created by running the following in MySQL:
-  ```USE mytrainer;
+  ```
+  USE mytrainer;
   SHOW TABLES;
   DESCRIBE users;
   DESCRIBE exerceses;
   DESCRIBE favorite_exerceses;
   DESCRIBE favorite_food;
   ```
-- Create the .env file to match your personal credentials such as DB_HOST, DB_USER, DB_PASS, DB_NAME, SUPER_SECRET
+- Create the .env file to match your personal credentials:
 
-#EF476F -salmon - call to action btn:
-Some lines, acsent of website:
-#FFD166 - yellow
-#06D6A0 - bright green
-#118AB2 - blue
-Text:
-#073B4C - dark blue for headers h1 ... h6
-#342F2F -paragraph p and all other text
+```
+DB_HOST=localhost
+DB_USER=yourUser
+DB_PASS=yourPassword
+DB_NAME=mytrainer
+SUPER_SECRET=yourSuperSecret
+API_Key=yourKey
+```
