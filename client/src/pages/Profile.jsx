@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Profile.css";
+import AuthContext from "../contexts/AuthContext";
 
 function Profile() {
+  const { signin } = useContext(AuthContext);
+
   // Initilizing the state of user
   const userInitialState = {
     username: "",
@@ -150,9 +153,7 @@ function Profile() {
                 className="form-control mb-2"
               >
                 <option value="Loose Weight">Loose Weight</option>
-                <option value="Get fit" >
-                  Get fit
-                </option>
+                <option value="Get fit">Get fit</option>
                 <option value="Increase strength">Increase strength</option>
                 <option value="Gain weight">Gain weight</option>
               </select>
