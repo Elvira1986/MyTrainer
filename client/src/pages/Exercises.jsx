@@ -60,7 +60,7 @@ const Exercises = () => {
         setError(`Network error: ${error.message}`);
       }
     } else {
-      console.log(exercise.id);
+      // console.log(exercises_id);
       let options = {
         method: "POST",
         headers: {
