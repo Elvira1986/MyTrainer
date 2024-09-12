@@ -26,7 +26,8 @@ router.post('/food',userShouldBeLoggedIn, async (req, res) => {
     try {
         await db(`INSERT INTO favorite_food (users_id, external_api_id, name, image) VALUES (${req.user_id}, '${external_api_id}', '${name}', '${image}');`);
         console.log(external_api_id, name, image)
-        res.status(200).send({ message: 'Favorite food added' });
+        const result = await db(`SELECT * FROM favorite_food WHERE users_id = ${req.user_id};`)
+        res.status(200).send({ message: 'Favorite food added', data: result.data});
     } catch (err) {
         res.status(500).send({ error: 'Database query failed' });
     }
