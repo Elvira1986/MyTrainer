@@ -105,6 +105,7 @@ function Meals() {
       <div className="search-controls">
         {/* Input field for the user to type in a search query */}
         <input
+          className="search"
           type="text"
           placeholder="Search recipes..."
           value={query}
@@ -112,7 +113,11 @@ function Meals() {
         />
 
         {/* Dropdown menu for selecting a diet filter */}
-        <select value={diet} onChange={(e) => setDiet(e.target.value)}>
+        <select
+          className="search"
+          value={diet}
+          onChange={(e) => setDiet(e.target.value)}
+        >
           <option value="">Select Diet</option>
           <option value="balanced">Balanced</option>
           <option value="high-protein">High-Protein</option>
@@ -126,6 +131,7 @@ function Meals() {
 
         {/* Dropdown menu for selecting an allergy filter */}
         <select
+          className="search"
           value={allergies}
           onChange={(e) => setAllergies(e.target.value)}
         >

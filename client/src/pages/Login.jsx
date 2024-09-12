@@ -4,6 +4,7 @@ import axios from "axios";
 import Modal from "../components/Modal.jsx";
 import Register from "../components/Register.jsx";
 import AuthContext from "../contexts/AuthContext";
+import "./Login.css";
 
 function Login() {
   const [showRegister, setShowRegister] = useState(false);
@@ -13,7 +14,6 @@ function Login() {
   // Functions to toggle visibility
   const handleRegister = () => {
     setShowRegister(true);
-    setShowLogin(false); // Optionally hide Login when Register is shown
   };
 
   const closeModal = () => {
@@ -22,8 +22,8 @@ function Login() {
 
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
-    username: "Username",
-    password: "****",
+    username: "name",
+    password: "name",
   });
 
   const [data, setData] = useState(null);
@@ -75,27 +75,33 @@ function Login() {
 
   return (
     <>
-      <div>
-        <div>
+      <h1>Log In to My Trainer</h1>
+      <div className="LoginCard">
+        <div className="login">
+          <label className="loginLebel">Your Username </label>
           <input
-            className="login"
+            className="loginInput"
             value={username}
             onChange={handleChange}
             name="username"
             type="text"
           />
+
+          <label className="loginLebel">Your Password</label>
           <input
-            className="login"
+            className="loginInput"
             value={password}
             onChange={handleChange}
             name="password"
             type="password"
           />
-          <div> {isLoggedIn ? "You are logged in" : "Please, login"}</div>
+
+          <div className="loginLebel">
+            {" "}
+            {isLoggedIn ? "You are logged in" : "Please, login"}
+          </div>
           <div className="d-flex gap-2 justify-content-center">
-            <button className="btn btn-primary" onClick={login}>
-              Log in
-            </button>
+            <button onClick={login}>Log in</button>
           </div>
         </div>
 
@@ -104,16 +110,17 @@ function Login() {
             <div className="alert">{data}</div>
           </div>
         )}
-      </div>
 
-      <div id="hello">
-        <button onClick={handleRegister}>Register</button>
-        <br />
-        {showRegister && (
-          <Modal onClose={closeModal}>
-            <Register />
-          </Modal>
-        )}
+        <div id="register" className="registerLogin">
+          <p className="loginLebel">Don’t have an account?</p>
+          <button onClick={handleRegister}>Register</button>
+          <br />
+          {showRegister && (
+            <Modal onClose={closeModal}>
+              <Register />
+            </Modal>
+          )}
+        </div>
       </div>
     </>
   );

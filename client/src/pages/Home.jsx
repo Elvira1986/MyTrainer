@@ -27,18 +27,8 @@ function Home() {
     <>
       <div className="intro">
         <h1>Welcome to My Trainer</h1>
-        <p>
-          This app is here for you to change your life and transform your body
-          and mind to the best possible way. You can check, follow and favorite
-          exercises and search for food recipies that will keep you motivated in
-          your journey of long healthy life and "Happy Days" - per Sofia when
-          this app works properly.
-        </p>
-        <div>
-          <MovieClip />
-        </div>
-        <p>What is the connection between food and exercise?</p>
-        <p>
+        <h2>What is the connection between food and exercise?</h2>
+        <p style={{ marginBottom: "2rem" }}>
           There is an undeniable relationship between food and exercise. Food
           provides energy. Exercise burns energy. A good partnership between
           workouts and balanced diet can stimulate positive body changes. Good
@@ -48,10 +38,22 @@ function Home() {
           activities, but it the nutrition that actually helps to process the
           change.
         </p>
+
+        <div>
+          <MovieClip />
+        </div>
+        <h2>Train and fuel your body</h2>
         <p>
+          This app is here for you to change your life and transform your body
+          and mind to the best possible way. You can check, follow and favorite
+          exercises and search for food recipies that will keep you motivated in
+          your journey of long healthy life and "Happy Days" - per Sofia when
+          this app works properly.
+        </p>
+        <h2>
           This is the list of benefits when you are properly exercise and eat
           healthy food:
-        </p>
+        </h2>
         <ul>
           <li>
             <i
