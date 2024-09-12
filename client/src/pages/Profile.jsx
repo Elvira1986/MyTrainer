@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Profile.css";
+import AuthContext from "../contexts/AuthContext";
 
 function Profile() {
+  const { signin } = useContext(AuthContext);
+
   // Initilizing the state of user
   const userInitialState = {
     username: "",
@@ -128,9 +131,9 @@ function Profile() {
       <div>
         {isEdit ? (
           <div className="UpdateProfile">
-            <h1>Update My Profile</h1>
+            <h2>Update Profile</h2>
             <form onSubmit={handleUpdate}>
-              <label>
+              <label className="profileLabel">
                 Update weight:
                 <input
                   className="profileInput"
@@ -141,22 +144,21 @@ function Profile() {
                 />
               </label>
 
-              <label>Update Goal </label>
-              <select
-                value={user.goal}
-                onChange={handleInput}
-                name="goal"
-                type="text"
-                className="form-control mb-2"
-              >
-                <option value="Loose Weight">Loose Weight</option>
-                <option value="Get fit" >
-                  Get fit
-                </option>
-                <option value="Increase strength">Increase strength</option>
-                <option value="Gain weight">Gain weight</option>
-              </select>
-
+              <label className="profileLabel">
+                Update Goal
+                <select
+                  value={user.goal}
+                  onChange={handleInput}
+                  name="goal"
+                  type="text"
+                  className="profileSelect"
+                >
+                  <option value="Loose Weight">Loose Weight</option>
+                  <option value="Get fit">Get fit</option>
+                  <option value="Increase strength">Increase strength</option>
+                  <option value="Gain weight">Gain weight</option>
+                </select>
+              </label>
               <button className="update" type="submit">
                 Update
               </button>
@@ -164,19 +166,19 @@ function Profile() {
           </div>
         ) : (
           <div className="Profile">
-            <h1>Personal Info</h1>
-            <p>Username: {user.username}</p>
-            <p>First Name: {user.first_name}</p>
-            <p>Last Name: {user.last_name}</p>
-            <p>
+            <h2>Personal Info</h2>
+            <p className="info">Username: {user.username}</p>
+            <p className="info">First Name: {user.first_name}</p>
+            <p className="info">Last Name: {user.last_name}</p>
+            <p className="info">
               <span>Height: {user.height} cm</span>{" "}
             </p>
-            <p>
+            <p className="info">
               <span>Weght: {user.weight} kg</span>
             </p>
 
-            <p>Gender: {user.gender}</p>
-            <p>Goal: {user.goal}</p>
+            <p className="info">Gender: {user.gender}</p>
+            <p className="info">Goal: {user.goal}</p>
 
             <div className="Buttons">
               <button onClick={editMode}>Update</button>

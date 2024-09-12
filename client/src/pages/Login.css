@@ -1,0 +1,57 @@
+.LoginCard {
+  max-width: 500px;
+  background-color: #ffd166;
+  margin: 0 auto;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #118ab2;
+  border-radius: 8px;
+}
+
+input,
+label,
+select {
+  padding: 7px;
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+
+select {
+  max-width: fit-content;
+}
+
+.loginInput {
+  border: 2px solid #118ab2;
+  padding: 15px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  margin: 5px;
+  color: #073b4c;
+}
+
+.loginLebel {
+  color: #342f2f;
+  text-align: center;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.registerLogin {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Registration CSS */
+/* .selectRegistration */
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

@@ -1,7 +1,12 @@
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import api from "../services/FavFoodRoutes";
 import FoodDetails from "../components/FoodDetails.jsx";
 import "./Meals.css"; // External CSS file
+import AuthContext from "../contexts/AuthContext";
 
 function Meals() {
   // State to hold the search query entered by the user
@@ -24,6 +29,9 @@ function Meals() {
 
   // State to hold error messages
   const [error, setError] = useState("");
+
+  // assign Context to the Favorite button
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [foodImage, setFoodImage] = useState("");
   const [selectedFood, setSelectedFood] =
@@ -124,6 +132,7 @@ function Meals() {
       <div className="search-controls">
         {/* Input field for the user to type in a search query */}
         <input
+          className="search"
           type="text"
           placeholder="Search recipes..."
           value={query}
@@ -134,6 +143,7 @@ function Meals() {
 
         {/* Dropdown menu for selecting a diet filter */}
         <select
+          className="search"
           value={diet}
           onChange={(e) =>
             setDiet(e.target.value)
@@ -160,6 +170,7 @@ function Meals() {
 
         {/* Dropdown menu for selecting an allergy filter */}
         <select
+          className="search"
           value={allergies}
           onChange={(e) =>
             setAllergies(e.target.value)

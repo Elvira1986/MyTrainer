@@ -74,7 +74,7 @@ function Favourites() {
 
   return (
     <div id="Favourites">
-      <h2>Favourites</h2>
+      <h2>Favourites Meals</h2>
 
       <div>
         {selectedFavFood && (

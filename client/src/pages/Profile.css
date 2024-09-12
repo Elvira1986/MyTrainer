@@ -1,6 +1,9 @@
 .UpdateProfile,
 .Profile {
-  display: block;
+  display: inline-grid;
+  /* grid-template-rows: auto; */
+  grid-template-rows: auto 50px;
+  column-gap: 50px;
   background-color: #118ab2;
   text-align: left;
   border-radius: 0.6rem;
@@ -9,13 +12,12 @@
   max-width: 50%;
   border: 3px solid #06d6a0;
 }
-p {
-  color: #342f2f;
-  font-size: 18px;
+.Buttons {
+  padding-top: 2rem;
 }
 button {
   background-color: #ef476f;
-  color: #fff;
+  color: #e5e5e5;
   border: 2px solid #ef476f;
   cursor: pointer;
   margin-right: 2rem;
@@ -25,13 +27,22 @@ button:hover {
   background-color: #ef476ece;
 }
 
-label,
-select,
+.profileLabel,
+.profileSelect,
 .profileInput {
   display: block;
   padding: 10px;
   border-radius: 8px;
   margin: 10px 0px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.info {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e5e5e5;
+  font-size: 18px;
 }
 
 .update {
@@ -45,3 +56,13 @@ select,
     max-width: 70%;
   }
 }
+
+/* Call to action btn:
+#EF476F -salmon
+Some lines, acsent of website:
+#FFD166 - yellow
+#06D6A0 - bright green
+#118AB2 - blue
+Text:
+#073B4C - dark blue for headers h1 ... h6
+#342F2F -paragraph p and all other text */
