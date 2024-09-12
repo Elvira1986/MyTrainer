@@ -1,28 +1,27 @@
 import { useState } from "react";
-import Login from "../components/Login.jsx";
-import Register from "../components/Register.jsx";
-import Modal from "../components/Modal.jsx";
+// import Register from "../components/Register.jsx";
+// import Modal from "../components/Modal.jsx";
 import MovieClip from "../components/YouTube.jsx";
 
 function Home() {
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  // const [showRegister, setShowRegister] = useState(false);
+  // const [showLogin, setShowLogin] = useState(false);
 
-  // Functions to toggle visibility
-  const handleRegister = () => {
-    setShowRegister(true);
-    setShowLogin(false); // Optionally hide Login when Register is shown
-  };
+  // // Functions to toggle visibility
+  // const handleRegister = () => {
+  //   setShowRegister(true);
+  //   setShowLogin(false); // Optionally hide Login when Register is shown
+  // };
 
-  const handleLogin = () => {
-    setShowLogin(true);
-    setShowRegister(false); // Optionally hide Register when Login is shown
-  };
+  // const handleLogin = () => {
+  //   setShowLogin(true);
+  //   setShowRegister(false); // Optionally hide Register when Login is shown
+  // };
 
-  const closeModal = () => {
-    setShowRegister(false);
-    setShowLogin(false);
-  };
+  // const closeModal = () => {
+  //   setShowRegister(false);
+  //   setShowLogin(false);
+  // };
 
   return (
     <>
@@ -99,23 +98,6 @@ function Home() {
             Improved sleep
           </li>
         </ul>
-      </div>
-
-      <div id="Home">
-        <button onClick={handleRegister}>Register</button>
-        <br />
-        <button onClick={handleLogin}>Log In</button>
-
-        {showRegister && (
-          <Modal onClose={closeModal}>
-            <Register />
-          </Modal>
-        )}
-        {showLogin && (
-          <Modal onClose={closeModal}>
-            <Login />
-          </Modal>
-        )}
       </div>
     </>
   );

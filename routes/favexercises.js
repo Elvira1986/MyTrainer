@@ -15,7 +15,7 @@ router.post("/favourites", userShouldBeLoggedIn, async (req, res) => {
     let sql = `INSERT INTO favorite_exercises (users_id, exercises_id) VALUES (${req.user_id}, ${exercises_id});`;
     await db(sql);
     let result = await db(
-      `SELECT * FROM favorite_exercises WHERE users_id=${req.user_id} AND exercises_id = ${exercises_id};`
+      `SELECT * FROM favorite_exercises WHERE users_id=${req.user_id};`
     );
     res.status(201).send(result.data);
   } catch (err) {
@@ -49,6 +49,7 @@ router.delete("/favourites", userShouldBeLoggedIn, async (req, res) => {
     const result = await db(
       `SELECT favorite_exercises.*, users.id, exercises.id, exercises.name, exercises.image, exercises.description, exercises.goal, exercises.muscles, exercises.category FROM favorite_exercises LEFT JOIN users ON users.id=favorite_exercises.users_id LEFT JOIN exercises ON exercises.id = favorite_exercises.exercises_id WHERE users_id=${req.user_id};`
     );
+
     res.send(result.data);
   } catch (err) {
     res.status(500).send({ error: err.message });

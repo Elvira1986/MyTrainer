@@ -75,7 +75,7 @@ const FavExercises = () => {
               onClick={() => deleteFavExercises(favExercise.exercises_id)}
             >
               <i
-                className="fa-solid fa-heart-crack fa-fade"
+                className="fa-solid fa-heart-crack"
                 title="Delete Favourite"
               ></i>
             </button>
