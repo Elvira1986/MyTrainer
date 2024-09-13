@@ -1,5 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import api from "../services/FavFoodRoutes";
+import FoodDetails from "../components/FoodDetails.jsx";
 import "./Meals.css"; // External CSS file
 import AuthContext from "../contexts/AuthContext";
 
@@ -28,12 +33,19 @@ function Meals() {
   // assign Context to the Favorite button
   const { isLoggedIn } = useContext(AuthContext);
 
+  const [foodImage, setFoodImage] = useState("");
+  const [selectedFood, setSelectedFood] =
+    useState([]);
+
   // Function to handle the API request and fetch recipes based on the user's input
-  const searchRecipes = async (random = false) => {
+  const searchRecipes = async (
+    random = false
+  ) => {
     setError("");
 
     const apiId = "7828a26c"; // Use your application ID for the EDAMAM API
-    const apiKey = "af250104f405a82bf082713bef547173"; // Use your application key for the EDAMAM API
+    const apiKey =
+      "af250104f405a82bf082713bef547173"; // Use your application key for the EDAMAM API
 
     // Construct the API URL with the query, diet, and allergy parameters
     let url = `https://api.edamam.com/api/recipes/v2?type=public&app_id=${apiId}&app_key=${apiKey}`;
@@ -59,19 +71,28 @@ function Meals() {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Error: ${response.status} ${response.statusText}`
+        );
       }
       const data = await response.json();
 
       if (data.hits.length === 0) {
-        setError("No recipes found. Please try a different query or filters.");
+        setError(
+          "No recipes found. Please try a different query or filters."
+        );
         setRecipes([]);
       } else {
         setRecipes(data.hits);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
-      setError("Failed to fetch recipes. Please try again later.");
+      console.error(
+        "Error fetching data:",
+        error
+      );
+      setError(
+        "Failed to fetch recipes. Please try again later."
+      );
     } finally {
       setLoading(false);
     }
@@ -84,18 +105,24 @@ function Meals() {
 
   async function handleFavFood(recipe) {
     api.postFood(recipe, (response) => {
-      console.log(response, err);
       setFavorites(response.data);
       setError(err);
     });
   }
 
   async function handleDelFavFood(recipe) {
-    api.deleteFood(recipe.recipe.uri, (response) => {
-      console.log(response);
-      setFavorites(response.data);
-      setError(err);
-    });
+    api.deleteFood(
+      recipe.recipe.uri,
+      (response) => {
+        setFavorites(response.data);
+        setError(err);
+      }
+    );
+  }
+
+  async function handleSelect(recipe) {
+    setFoodImage(recipe.recipe.image);
+    setSelectedFood([recipe]);
   }
 
   return (
@@ -109,22 +136,34 @@ function Meals() {
           type="text"
           placeholder="Search recipes..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) =>
+            setQuery(e.target.value)
+          }
         />
 
         {/* Dropdown menu for selecting a diet filter */}
         <select
           className="search"
           value={diet}
-          onChange={(e) => setDiet(e.target.value)}
+          onChange={(e) =>
+            setDiet(e.target.value)
+          }
         >
           <option value="">Select Diet</option>
-          <option value="balanced">Balanced</option>
-          <option value="high-protein">High-Protein</option>
-          <option value="low-carb">Low-Carb</option>
+          <option value="balanced">
+            Balanced
+          </option>
+          <option value="high-protein">
+            High-Protein
+          </option>
+          <option value="low-carb">
+            Low-Carb
+          </option>
           <option value="low-fat">Low-Fat</option>
           <option value="vegan">Vegan</option>
-          <option value="vegetarian">Vegetarian</option>
+          <option value="vegetarian">
+            Vegetarian
+          </option>
           <option value="paleo">Paleo</option>
           <option value="keto">Keto</option>
         </select>
@@ -133,46 +172,67 @@ function Meals() {
         <select
           className="search"
           value={allergies}
-          onChange={(e) => setAllergies(e.target.value)}
+          onChange={(e) =>
+            setAllergies(e.target.value)
+          }
         >
           <option value="">Select Allergy</option>
-          <option value="gluten-free">Gluten-Free</option>
-          <option value="peanut-free">Peanut-Free</option>
-          <option value="soy-free">Soy-Free</option>
-          <option value="dairy-free">Dairy-Free</option>
-          <option value="egg-free">Egg-Free</option>
-          <option value="fish-free">Fish-Free</option>
-          <option value="shellfish-free">Shellfish-Free</option>
-          <option value="tree-nut-free">Tree Nut-Free</option>
+          <option value="gluten-free">
+            Gluten-Free
+          </option>
+          <option value="peanut-free">
+            Peanut-Free
+          </option>
+          <option value="soy-free">
+            Soy-Free
+          </option>
+          <option value="dairy-free">
+            Dairy-Free
+          </option>
+          <option value="egg-free">
+            Egg-Free
+          </option>
+          <option value="fish-free">
+            Fish-Free
+          </option>
+          <option value="shellfish-free">
+            Shellfish-Free
+          </option>
+          <option value="tree-nut-free">
+            Tree Nut-Free
+          </option>
         </select>
 
         {/* Button to trigger the searchRecipes function when clicked */}
-        <button onClick={() => searchRecipes()} disabled={loading}>
+        <button
+          onClick={() => searchRecipes()}
+          disabled={loading}
+        >
           {loading ? "Searching..." : "Search"}
         </button>
       </div>
 
       {/* Display error messages if any */}
-      {error && <p className="error-message">{error}</p>}
+      {error && (
+        <p className="error-message">{error}</p>
+      )}
+
+      <div>
+        {selectedFood && (
+          <FoodDetails
+            selectedFavFood={selectedFood}
+            foodImage={foodImage}
+          />
+        )}
+      </div>
 
       {/* Display the list of recipes in a grid layout */}
       <div className="recipe-grid">
         {recipes.map((recipe, index) => (
-          <div key={index} className="recipe-card">
-            <img
-              src={recipe.recipe.image}
-              alt={recipe.recipe.label}
-              className="recipe-image"
-            />
-            <h3>{recipe.recipe.label}</h3>
-            <p>{recipe.recipe.dishType?.join(", ")}</p>
-            <p>{recipe.recipe.dishType?.join(", ")}</p>
-            <p className="recipe-description">
-              {Math.round(recipe.recipe.calories)} CALORIES |{" "}
-              {recipe.recipe.ingredientLines.length} INGREDIENTS
-              {Math.round(recipe.recipe.calories)} CALORIES <br />
-              {recipe.recipe.ingredientLines.length} INGREDIENTS
-            </p>
+          <div
+            key={index}
+            className="recipe-card"
+          >
             {/* Link to the recipe */}
             <a
               href={recipe.recipe.url}
@@ -182,14 +242,45 @@ function Meals() {
             >
               View Recipe
             </a>
-            <div>
-              {isLoggedIn && (
-                <button onClick={() => handleFavFood(recipe)}>FAV</button>
-              )}
-              {isLoggedIn && (
-                <button onClick={() => handleDelFavFood(recipe)}>DEL</button>
-              )}
-            </div>
+            <img
+              src={recipe.recipe.image}
+              alt={recipe.recipe.label}
+              className="recipe-image"
+            />
+            <h3>{recipe.recipe.label}</h3>
+            <p>
+              {recipe.recipe.dishType?.join(", ")}
+            </p>
+            <p className="recipe-description">
+              {Math.round(recipe.recipe.calories)}{" "}
+              CALORIES |{" "}
+              {
+                recipe.recipe.ingredientLines
+                  .length
+              }{" "}
+              INGREDIENTS
+            </p>
+
+            <button
+              onClick={() => handleSelect(recipe)}
+            >
+              See more
+            </button>
+
+            <button
+              onClick={() =>
+                handleFavFood(recipe)
+              }
+            >
+              FAV
+            </button>
+            <button
+              onClick={() =>
+                handleDelFavFood(recipe)
+              }
+            >
+              DEL
+            </button>
           </div>
         ))}
       </div>
