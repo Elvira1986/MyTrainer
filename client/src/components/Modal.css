@@ -2,7 +2,7 @@
 .modal-overlay {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 550px;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;

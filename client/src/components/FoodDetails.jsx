@@ -14,7 +14,6 @@ function FoodDetails({
               <div className="labels">
                 <h5>
                   <i class="fa-solid fa-utensils"></i>
-                  Dish Type:
                 </h5>
                 <div className="dishType">
                   {food.recipe.dishType.length >
@@ -30,8 +29,7 @@ function FoodDetails({
                     )}
                 </div>
                 <h5>
-                  <i class="fa-solid fa-kitchen-set"></i>
-                  Meal Type:
+                  <i class="fa-solid fa-burger"></i>
                 </h5>
                 <div className="mealType">
                   {food.recipe.mealType.length >
@@ -46,7 +44,9 @@ function FoodDetails({
                       )
                     )}
                 </div>
-                <h5>Cuisine Type:</h5>
+                <h5>
+                  <i class="fa-solid fa-kitchen-set"></i>
+                </h5>
                 <div className="cuisineType">
                   {food.recipe.cuisineType
                     .length > 0 &&
@@ -62,7 +62,6 @@ function FoodDetails({
                 </div>
                 <h5>
                   <i class="fa-solid fa-prescription-bottle-medical"></i>
-                  Health Label:
                 </h5>
                 <div className="healthLabels">
                   {food.recipe.healthLabels
@@ -80,7 +79,6 @@ function FoodDetails({
 
                 <h5>
                   <i class="fa-solid fa-notes-medical"></i>
-                  Diet Label:
                 </h5>
                 <div className="dietLabels">
                   {food.recipe.dietLabels.length >
@@ -97,27 +95,34 @@ function FoodDetails({
                 </div>
               </div>
 
-              <p>
-                <i class="fa-solid fa-plate-wheat"></i>
-                Servings: {food.recipe.yield}{" "}
-              </p>
-              <p>
-                <i class="fa-solid fa-stopwatch-20"></i>
-                Prep and cooking time:{" "}
-                {food.recipe.totalTime}{" "}
-              </p>
-              <p>
-                <i class="fa-solid fa-scale-balanced"></i>
-                Weight:{" "}
-                {Math.round(
-                  food.recipe.totalWeight
-                )}{" "}
-              </p>
+              <div className="prepInfo">
+                <p>
+                  <i class="fa-solid fa-plate-wheat"></i>
+                  {"  "}
+                  {food.recipe.yield}{" "}
+                </p>
+                <p>
+                  <i class="fa-solid fa-stopwatch-20"></i>
+                  {"  "}
+                  {food.recipe.totalTime}{" "}
+                </p>
+                <p>
+                  <i class="fa-solid fa-scale-balanced"></i>
+                  {"  "}
+                  {Math.round(
+                    food.recipe.totalWeight
+                  )}{" "}
+                </p>
 
-              <p>
-                Calories:{" "}
-                {Math.round(food.recipe.calories)}{" "}
-              </p>
+                <p>
+                  Calories:{" "}
+                  {Math.round(
+                    food.recipe.calories
+                  )}{" "}
+                </p>
+              </div>
+
+              <p>INGREDIENTS</p>
 
               <div className="ingredients">
                 {food.recipe.ingredientLines
